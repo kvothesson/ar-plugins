@@ -1,0 +1,12 @@
+{
+  "name": "AR Plugins",
+  "description": "Plugins de Claude Code para el ecosistema hispanohablante",
+  "plugins": [
+    {
+      "name": "nodo",
+      "description": "Contexto personal persistente entre sesiones de Claude Code",
+      "repository": "https://github.com/kvothesson/nodo",
+      "version": "1.0.0"
+    }
+  ]
+}
