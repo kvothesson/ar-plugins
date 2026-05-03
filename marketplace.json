@@ -13,6 +13,12 @@
       "description": "Economía argentina en tiempo real — dólar, inflación, sueldos, canasta",
       "repository": "https://github.com/kvothesson/arca",
       "version": "1.0.0"
+    },
+    {
+      "name": "tramite",
+      "description": "Navegador de burocracia argentina — ANSES, ARCA/AFIP, DNI, registro automotor",
+      "repository": "https://github.com/kvothesson/tramite",
+      "version": "1.0.0"
     }
   ]
 }
