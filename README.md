@@ -15,6 +15,7 @@ Datos reales, fuentes primarias, lenguaje llano.
 | [derecho](https://github.com/kvothesson/derecho) | Marco legal: laboral, consumidor, contratos |
 | [dato](https://github.com/kvothesson/dato) | INDEC, elecciones, catastro, jurisprudencia |
 | [nodo](https://github.com/kvothesson/nodo) | Contexto personal persistente entre sesiones |
+| [guita](https://github.com/kvothesson/guita) | Ingreso neto real, gastos con inflacion y runway por situacion laboral |
 
 ---
 
@@ -111,6 +112,42 @@ Haber mínimo vigente: $...  (se actualiza trimestralmente)
 Turno online: mi.anses.gob.ar
 
 Fuente: anses.gob.ar
+```
+
+### guita — finanzas personales
+
+```
+/guita repartidor
+
+## Ingreso neto real — Repartidor de plataforma
+
+Ingreso bruto:               $80.000/mes (4 semanas x $20.000)
+  Combustible:               -$14.000/mes
+  Mantenimiento moto:         -$6.000/mes
+  Cuota unipersonal:         -$10.000/mes
+  Internet celular:           -$2.000/mes
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Neto estimado:               $48.000/mes
+En dolares blue:             u$s 34/mes
+
+Canasta basica:              $417.680 (INDEC, dic 2025)
+SMVM vigente:                $363.000 (mayo 2026)
+
+Fuente: INDEC / Secretaria de Trabajo / dolarapi.com — mayo 2026
+```
+
+```
+/guita runway
+
+Ahorros:     u$s 3.000 = $4.200.000 al blue
+Gastos:      $688.000/mes
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Runway nominal:   6.1 meses (hasta noviembre 2026)
+Runway real:      5.6 meses (hasta octubre 2026)
+
+La inflacion (3.05%/mes) te quita 0.5 meses de runway real.
+
+Fuente: INDEC IPC / dolarapi.com — mayo 2026
 ```
 
 ---
