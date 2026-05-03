@@ -41,14 +41,15 @@
 
 ---
 
-### 👨‍💻 laburo
-**Descripción:** Mercado laboral argentino para tech y profesionales.
-**Problema:** El mercado laboral argentino tiene dinámicas únicas — dolarización de sueldos, freelance internacional, precios en un contexto inflacionario.
+### 💼 laburo
+**Descripción:** Mercado laboral argentino para todo el espectro de trabajadores.
+**Problema:** Fragmentación de información sobre sueldos, paritarias y derechos laborales en un contexto inflacionario.
+**Propósito:** Brindar claridad sobre ingresos, búsqueda de empleo y presupuestos para cualquier trabajador argentino —registrado, informal, monotributista o desempleado.
 **Skills:**
-- `/laburo mercado` — state of the market: sueldos promedio por rol, tendencias
-- `/laburo tarifa [rol] [senioridad]` — cuánto cobrar en AR / USD / remoto
-- `/laburo cv [objetivo]` — adaptar CV al mercado argentino o internacional
-- `/laburo propuesta [contexto]` — armar propuesta económica para cliente
+- `sueldo`: Consulta SMVM, Índice de Salarios (INDEC) y acuerdos paritarios recientes por sector.
+- `freelo`: Guía para trabajadores independientes — Monotributo, cálculo de hora hombre, presupuestos.
+- `cv`: Estructuración de currículum y perfiles laborales según estándares nacionales (Portal Empleo).
+**Fuentes:** [argentina.gob.ar](https://www.argentina.gob.ar/trabajo), [indec.gob.ar](https://www.indec.gob.ar), [portalempleo.gob.ar](https://www.portalempleo.gob.ar), [afip.gob.ar](https://www.afip.gob.ar/monotributo/categorias.asp)
 
 ---
 
@@ -145,7 +146,7 @@ Ningún plugin envía datos personales a terceros. Las consultas son locales o v
 |-----------|--------|---------|-------------|
 | 🔥 Alta | **arca** | Masivo, se usa todos los días | Media — APIs existentes |
 | 🔥 Alta | **tramite** | Masivo, ahorra tiempo real | Alta — datos cambian mucho |
-| 🟡 Media | **laburo** | Alto en tech | Media |
+| 🟡 Media | **laburo** | Alto en todo el espectro laboral | Media |
 | 🟡 Media | **derecho** | Alto, sin alternativa accesible | Alta |
 | 🟡 Media | **dato** | Multiplicador para periodistas/analistas | Media |
 | 🟢 Normal | **salud** | Alto en vulnerables | Alta |
