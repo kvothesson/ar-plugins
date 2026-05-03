@@ -7,6 +7,12 @@
       "description": "Contexto personal persistente entre sesiones de Claude Code",
       "repository": "https://github.com/kvothesson/nodo",
       "version": "1.0.0"
+    },
+    {
+      "name": "arca",
+      "description": "Economía argentina en tiempo real — dólar, inflación, sueldos, canasta",
+      "repository": "https://github.com/kvothesson/arca",
+      "version": "1.0.0"
     }
   ]
 }
