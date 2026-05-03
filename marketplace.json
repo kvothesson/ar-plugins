@@ -19,6 +19,24 @@
       "description": "Navegador de burocracia argentina — ANSES, ARCA/AFIP, DNI, registro automotor",
       "repository": "https://github.com/kvothesson/tramite",
       "version": "1.0.0"
+    },
+    {
+      "name": "laburo",
+      "description": "Mercado laboral argentino para tech y profesionales",
+      "repository": "https://github.com/kvothesson/laburo",
+      "version": "1.0.0"
+    },
+    {
+      "name": "derecho",
+      "description": "Marco legal argentino accesible — laboral, consumidor, contratos, societario",
+      "repository": "https://github.com/kvothesson/derecho",
+      "version": "1.0.0"
+    },
+    {
+      "name": "dato",
+      "description": "Datos publicos de Argentina procesables — INDEC, elecciones, catastro, justicia",
+      "repository": "https://github.com/kvothesson/dato",
+      "version": "1.0.0"
     }
   ]
 }
