@@ -37,6 +37,12 @@
       "description": "Datos publicos de Argentina procesables — INDEC, elecciones, catastro, justicia",
       "repository": "https://github.com/kvothesson/dato",
       "version": "1.0.0"
+    },
+    {
+      "name": "guita",
+      "description": "Finanzas personales para trabajadores argentinos — ingreso neto real, gastos ajustados por inflacion y runway segun situacion laboral",
+      "repository": "https://github.com/kvothesson/guita",
+      "version": "1.0.0"
     }
   ]
 }
