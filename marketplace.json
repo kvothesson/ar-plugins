@@ -22,9 +22,9 @@
     },
     {
       "name": "laburo",
-      "description": "Mercado laboral argentino para tech y profesionales",
+      "description": "Mercado laboral argentino para todo el espectro de trabajadores — sueldos, paritarias, SMVM, tarifas para independientes y CV",
       "repository": "https://github.com/kvothesson/laburo",
-      "version": "1.0.0"
+      "version": "2.0.0"
     },
     {
       "name": "derecho",
