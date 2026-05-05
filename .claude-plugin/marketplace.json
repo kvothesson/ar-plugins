@@ -89,6 +89,54 @@
         "url": "https://github.com/kvothesson/guita.git"
       },
       "homepage": "https://github.com/kvothesson/guita"
+    },
+    {
+      "name": "salud",
+      "description": "Sistema de salud argentino: cobertura de obras sociales, PAMI, hospitales publicos y precios de medicamentos",
+      "author": {
+        "name": "kvothesson"
+      },
+      "source": {
+        "source": "git",
+        "url": "https://github.com/kvothesson/salud.git"
+      },
+      "homepage": "https://github.com/kvothesson/salud"
+    },
+    {
+      "name": "startup",
+      "description": "Ecosistema emprendedor argentino: fondos publicos y privados, constitucion de empresas, equity y pitch",
+      "author": {
+        "name": "kvothesson"
+      },
+      "source": {
+        "source": "git",
+        "url": "https://github.com/kvothesson/startup.git"
+      },
+      "homepage": "https://github.com/kvothesson/startup"
+    },
+    {
+      "name": "medios",
+      "description": "Ecosistema informativo argentino: agenda del dia, cobertura comparada por medio, verificacion de afirmaciones y contexto historico",
+      "author": {
+        "name": "kvothesson"
+      },
+      "source": {
+        "source": "git",
+        "url": "https://github.com/kvothesson/medios.git"
+      },
+      "homepage": "https://github.com/kvothesson/medios"
+    },
+    {
+      "name": "educacion",
+      "description": "Sistema educativo argentino: becas disponibles, donde estudiar una carrera, certificaciones tech y recursos gratuitos de ingles",
+      "author": {
+        "name": "kvothesson"
+      },
+      "source": {
+        "source": "git",
+        "url": "https://github.com/kvothesson/educacion.git"
+      },
+      "homepage": "https://github.com/kvothesson/educacion"
     }
   ]
 }
