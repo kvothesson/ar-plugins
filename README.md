@@ -16,6 +16,10 @@ Datos reales, fuentes primarias, lenguaje llano.
 | [dato](https://github.com/kvothesson/dato) | INDEC, elecciones, catastro, jurisprudencia |
 | [nodo](https://github.com/kvothesson/nodo) | Contexto personal persistente entre sesiones |
 | [guita](https://github.com/kvothesson/guita) | Ingreso neto real, gastos con inflacion y runway por situacion laboral |
+| [salud](https://github.com/kvothesson/salud) | Cobertura de obras sociales, PAMI, hospitales publicos y precios de medicamentos |
+| [startup](https://github.com/kvothesson/startup) | Fondos publicos y privados, constitucion de empresas, equity y pitch |
+| [medios](https://github.com/kvothesson/medios) | Agenda del dia, cobertura comparada por medio, verificacion de afirmaciones |
+| [educacion](https://github.com/kvothesson/educacion) | Becas, donde estudiar una carrera, certificaciones tech y recursos de ingles |
 
 ---
 
@@ -148,6 +152,99 @@ Runway real:      5.6 meses (hasta octubre 2026)
 La inflacion (3.05%/mes) te quita 0.5 meses de runway real.
 
 Fuente: INDEC IPC / dolarapi.com — mayo 2026
+```
+
+### salud — sistema de salud argentino
+
+```
+/salud medicamento ibuprofeno
+
+💊 Ibuprofeno
+   Dato al 4 may 2026
+
+Principio activo: Ibuprofeno
+Presentaciones: 400mg, 600mg — comprimidos / suspension
+
+Precio aprox.: $2.800 — $6.500 (segun laboratorio y farmacia, may 2026)
+
+Generico disponible: Si
+  Ibuprofeno generico — hasta 50% mas barato que marcas como Ibupirac o Actron
+
+Cobertura:
+  Obras sociales (PMO): cubre con receta medica en muchos planes
+  PAMI: 40% de descuento en farmacias adheridas
+
+Necesitas receta: No (venta libre hasta 400mg)
+
+Fuente: argentina.gob.ar / kairosweb.com — may 2026
+```
+
+### startup — ecosistema emprendedor
+
+```
+/startup fondos
+
+🚀 Financiamiento para Emprendedores — 4 may 2026
+
+FONTAR (Fondo Tecnologico Argentino)
+  ANR: hasta USD 500.000 — requiere co-financiamiento propio
+  Quien aplica: empresas con proyecto de innovacion tecnologica en Argentina
+  Estado: convocatoria permanente (verificar apertura en agencia.gob.ar)
+  → https://www.agencia.gob.ar/fontar
+
+FONSOFT (Software y Servicios Informaticos)
+  ANR de hasta $15M para proyectos de I+D en software
+  → https://www.agencia.gob.ar/fonsoft
+
+SEPyME — Creditos PyME
+  Lineas para capital de trabajo, inversion, exportacion
+  → https://www.argentina.gob.ar/produccion/sepyme
+
+Fuente: argentina.gob.ar / agencia.gob.ar — 4 may 2026
+```
+
+### medios — ecosistema informativo
+
+```
+/medios verificar "la inflacion de marzo fue del 3%"
+
+🔍 Verificacion: "la inflacion de marzo fue del 3%"
+   Dato al 4 may 2026
+
+RESULTADO: ✅ Verificado (con matiz)
+
+QUE DICE LA FUENTE PRIMARIA
+  El INDEC publico el IPC de marzo 2026 con una variacion mensual del 3,1%
+  → https://www.indec.gob.ar/indec/web/Nivel4-Tema-3-5-31
+
+CONTEXTO IMPORTANTE
+  El 3% mensual equivale a un 42,6% anualizado si se mantuviera constante.
+
+Fuentes: indec.gob.ar — 4 may 2026
+```
+
+### educacion — sistema educativo
+
+```
+/educacion becas estudiante universitario
+
+🎓 Becas — estudiante universitario
+   Dato al 4 may 2026
+
+BECAS PROGRESAR
+  • Progresar Superior — universitario/terciario  ← aplica directamente
+
+  Monto: $35.000 / mes
+    (80% mensual + 20% al presentar certificado de regularidad)
+
+  Requisitos basicos:
+    • Argentino/a con 2+ anos de residencia
+    • Ingresos del grupo familiar <= 3 SMVM
+    • Inscripto como alumno regular
+
+  Inscripcion: becasprogresar.educacion.gob.ar o app Mi Argentina
+
+Fuente: argentina.gob.ar — 4 may 2026
 ```
 
 ---
