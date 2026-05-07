@@ -253,11 +253,11 @@ Ver `skills/dev/SKILL.md` para el detalle paso a paso.
 
 ### Cargar un issue proactivo
 
-Cuando un agente detecta un caso no cubierto, una fuente caida o una mejora obvia mientras trabaja con un plugin, puede registrarlo como issue en lugar de solo mencionarlo en el chat.
+Cuando un agente detecta un caso no cubierto, una fuente caida o una mejora obvia mientras trabaja con un plugin, puede registrarlo como issue usando el plugin `reportar`.
 
-**Estado:** en desarrollo — ver [issue #4](https://github.com/kvothesson/ar-plugins/issues/4).
+El plugin esta incluido en este marketplace. Si esta instalado, se activa automaticamente cuando detecta algo accionable — o se invoca con `/reportar`. Detecta el repo destino por contexto (plugin especifico vs ecosistema), verifica duplicados y pide aprobacion antes de abrir.
 
-El criterio de cuando cargar y el formato estandar se esta definiendo iterativamente. Por ahora: si encontras algo que vale registrar, cargalo con titulo descriptivo y contexto suficiente para que otro agente lo resuelva sin esta conversacion.
+Ver [kvothesson/reportar](https://github.com/kvothesson/reportar) para el detalle.
 
 ### Crear un plugin nuevo (paso a paso)
 
