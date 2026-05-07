@@ -1,36 +1,106 @@
-﻿# AGENT.md — AR Plugins: Runbook para agentes
+# AGENT.md — AR Plugins
 
-Este archivo es el punto de entrada para cualquier agente que necesite **crear un plugin nuevo**, **actualizar uno existente** o **hacer cambios al marketplace**. Leé esto antes de tocar cualquier archivo.
-
----
-
-## 0. Contexto del ecosistema
-
-AR Plugins es un conjunto de plugins de Claude Code para el contexto argentino. El objetivo: datos reales, fuentes primarias, lenguaje llano.
-
-- **Marketplace:** `kvothesson/ar-plugins` — `marketplace.json` lista todos los plugins publicados
-- **SPEC:** `SPEC.md` en este mismo repo — describe todos los plugins planificados, su propósito y skills
-- **Plugins publicados:** cada uno vive en su propio repo `kvothesson/<nombre>`
-- **Modelos de referencia:** [`kvothesson/arca`](https://github.com/kvothesson/arca) y [`kvothesson/tramite`](https://github.com/kvothesson/tramite)
+Punto de entrada para cualquier agente o desarrollador que trabaje en este ecosistema.
+Lee esto completo antes de tocar cualquier archivo.
 
 ---
 
-## 1. Estructura de un plugin
+## Indice
 
-Todo plugin tiene esta estructura exacta:
+1. [Que es esto](#1-que-es-esto)
+2. [Arquitectura del ecosistema](#2-arquitectura-del-ecosistema)
+3. [El marketplace](#3-el-marketplace)
+4. [Plugins](#4-plugins)
+5. [Skills](#5-skills)
+6. [Workflows de desarrollo](#6-workflows-de-desarrollo)
+7. [Principios](#7-principios)
+8. [Referencias](#8-referencias)
+
+---
+
+## 1. Que es esto
+
+AR Plugins es un marketplace de plugins de Claude Code para el ecosistema argentino. Cada plugin conecta a Claude con datos reales de Argentina — organismos oficiales, APIs publicas, fuentes primarias — y los expone como skills invocables desde Claude Code.
+
+**Objetivo:** datos reales, fuentes primarias, lenguaje llano. Sin intermediarios, sin hardcodear valores que cambian.
+
+---
+
+## 2. Arquitectura del ecosistema
+
+```
+kvothesson/ar-plugins                  <- este repo
+  .claude-plugin/
+    marketplace.json                   <- indice de todos los plugins publicados
+    plugin.json                        <- ar-plugins como plugin instalable (skills de dev)
+  skills/
+    dev/
+      SKILL.md                         <- /dev resolver #N (workflow de desarrollo)
+  AGENT.md                             <- este archivo (primer contacto)
+  SPEC.md                              <- spec de todos los plugins planificados
+  README.md                            <- documentacion publica del marketplace
+
+kvothesson/<nombre>                    <- cada plugin vive en su propio repo
+  .claude-plugin/
+    plugin.json                        <- metadata del plugin
+  skills/
+    <nombre>/
+      SKILL.md                         <- instrucciones para Claude
+  README.md                            <- documentacion para usuarios
+  .gitignore
+```
+
+**Regla central:** el repo `ar-plugins` es solo el indice y el tooling de desarrollo. El codigo de cada plugin vive en su propio repo bajo `kvothesson/<nombre>`.
+
+---
+
+## 3. El marketplace
+
+`marketplace.json` es el indice central. Lista todos los plugins publicados con nombre, descripcion, repo y version.
+
+Para ver el estado actual:
+
+```bash
+gh api repos/kvothesson/ar-plugins/contents/.claude-plugin/marketplace.json --jq '.content' | base64 -d
+```
+
+Cada entrada tiene esta forma:
+
+```json
+{
+  "name": "<nombre>",
+  "description": "<descripcion corta>",
+  "author": { "name": "kvothesson" },
+  "source": {
+    "source": "git",
+    "url": "https://github.com/kvothesson/<nombre>.git"
+  },
+  "homepage": "https://github.com/kvothesson/<nombre>"
+}
+```
+
+Actualizar `marketplace.json` es el ultimo paso al publicar un plugin nuevo o cambiar su version.
+
+---
+
+## 4. Plugins
+
+### Estructura obligatoria
+
+Todo plugin tiene exactamente esta estructura:
 
 ```
 <nombre>/
   .claude-plugin/
-    plugin.json       <- metadata del plugin
+    plugin.json
   skills/
     <nombre>/
-      SKILL.md        <- instrucciones para Claude: que hacer con cada comando
-  README.md           <- documentacion para humanos con ejemplos reales de output
+      SKILL.md
+  README.md
   .gitignore
 ```
 
-### `plugin.json`
+### plugin.json
 
 ```json
 {
@@ -46,131 +116,21 @@ Todo plugin tiene esta estructura exacta:
 }
 ```
 
-### `SKILL.md`
-
-Empieza con frontmatter:
-
-```markdown
----
-description: <Una oracion. Que hace el plugin. Cuando usarlo. Que keywords lo disparan.>
----
-```
-
-Luego el cuerpo: comandos con su formato de respuesta, URLs a fetchear, manejo de errores, tono.
-
-**Reglas para el SKILL.md:**
-- Nunca hardcodear montos, fechas ni requisitos — siempre WebFetch o WebSearch a fuente primaria
-- Especificar la URL exacta a fetchear para cada comando
-- Definir el formato de respuesta con un bloque de codigo de ejemplo
-- Incluir fallback si la URL principal falla
-- Seccion de tono al final
-- Siempre mostrar fuente y fecha del dato en la respuesta al usuario
-
-### `README.md`
+### README.md
 
 Documentacion para humanos. Incluye:
 1. Que hace el plugin (2-3 lineas)
-2. Instalacion (`claude --plugin-dir /ruta`)
-3. Un ejemplo real de output por cada comando — con datos actuales, no placeholders
-4. Seccion de fuentes con URLs
+2. Instalacion: `claude --plugin-dir /ruta/al/plugin`
+3. Un ejemplo real de output por cada comando — con datos del momento, no placeholders
+4. Seccion "Fuentes" con URLs
 
-**Los ejemplos del README deben ser reales.** Antes de escribirlos, hace WebSearch o WebFetch para obtener datos del momento. No uses `$XX.XX` ni `[monto]`.
+**Los ejemplos deben ser reales.** Antes de escribirlos, hace WebFetch/WebSearch y usa los datos obtenidos. Nunca `$XX.XX` ni `[monto]`.
 
-### `.gitignore`
+### .gitignore
 
 ```
 .DS_Store
 *.log
-```
-
----
-
-## 2. Como crear un plugin nuevo
-
-### Paso 1 — Leer el SPEC
-
-```bash
-gh api repos/kvothesson/ar-plugins/contents/SPEC.md \
-  | python -c "import sys,json,base64; d=json.load(sys.stdin); print(base64.b64decode(d['content']).decode())"
-```
-
-Identifica el plugin a construir. El SPEC tiene: descripcion, problema que resuelve, skills y fuentes sugeridas.
-
-### Paso 2 — Explorar fuentes
-
-Antes de escribir el SKILL.md, verifica que las URLs/APIs funcionen. Para cada skill:
-
-- **Si hay API publica:** hace WebFetch a la URL y comprueba que devuelve datos utiles
-- **Si no hay API:** hace WebSearch con `site:<organismo>.gob.ar [tema]` y verifica resultados
-- **Anota** que URLs funcionaron — las vas a usar en el SKILL.md y en los ejemplos del README
-
-### Paso 3 — Crear directorio local y escribir archivos
-
-```bash
-mkdir -p /tmp/<nombre>/.claude-plugin
-mkdir -p /tmp/<nombre>/skills/<nombre>
-```
-
-Orden de escritura: `plugin.json` -> `SKILL.md` -> `.gitignore` -> `README.md` (despues de testear fuentes).
-
-### Paso 4 — Testear cada skill
-
-Para cada comando del SKILL.md, ejecuta las busquedas/fetches que el skill haria en produccion:
-- La URL responde?
-- Los datos son legibles y utiles?
-- El fallback funciona si la URL principal falla?
-
-Usa los datos reales obtenidos para escribir los ejemplos del README.
-
-### Paso 5 — Crear repo y publicar
-
-```bash
-cd /tmp/<nombre>
-git init
-git add -A
-git commit -m "feat: plugin <nombre> v1.0.0 — <descripcion corta>"
-gh repo create kvothesson/<nombre> --public \
-  --description "Plugin de Claude Code — <descripcion>" \
-  --source . --remote origin --push
-```
-
-### Paso 6 — Actualizar el marketplace
-
-```bash
-# Clonar en directorio temporal
-gh repo clone kvothesson/ar-plugins /tmp/ar-plugins
-
-# Editar /tmp/ar-plugins/marketplace.json:
-# Agregar al array "plugins":
-# {
-#   "name": "<nombre>",
-#   "description": "<descripcion>",
-#   "repository": "https://github.com/kvothesson/<nombre>",
-#   "version": "1.0.0"
-# }
-
-cd /tmp/ar-plugins
-git add marketplace.json
-git commit -m "feat: agrega <nombre> al marketplace"
-git push
-
-rm -rf /tmp/ar-plugins
-```
-
----
-
-## 3. Como actualizar un plugin existente
-
-### Actualizar un skill o corregir URLs
-
-```bash
-gh repo clone kvothesson/<nombre> /tmp/<nombre>
-# editar los archivos necesarios
-cd /tmp/<nombre>
-git add -A
-git commit -m "fix: <descripcion del cambio>"
-git push
-rm -rf /tmp/<nombre>
 ```
 
 ### Convencion de versiones
@@ -179,84 +139,164 @@ rm -rf /tmp/<nombre>
 - `1.x.0` — skills nuevas o cambios de comportamiento
 - `x.0.0` — refactor estructural o cambio de fuentes principales
 
-Si el cambio es significativo, actualiza `version` en `plugin.json` y luego en `marketplace.json`:
+### Plugins publicados y pendientes
+
+Ver `SPEC.md` para la descripcion completa de cada plugin — problema que resuelve, skills planificadas y fuentes sugeridas.
 
 ```bash
-gh repo clone kvothesson/ar-plugins /tmp/ar-plugins
-# editar marketplace.json: cambiar "version" del plugin correspondiente
-cd /tmp/ar-plugins
-git add marketplace.json
-git commit -m "chore: bumps <nombre> a v<nueva-version>"
-git push
-rm -rf /tmp/ar-plugins
+gh api repos/kvothesson/ar-plugins/contents/SPEC.md --jq '.content' | base64 -d
 ```
 
 ---
 
-## 4. Principios que nunca se negocian
+## 5. Skills
+
+Una skill es un archivo `SKILL.md` que le dice a Claude que hacer cuando el usuario invoca un comando (`/nombre`) o cuando el contexto lo requiere.
+
+### Estructura minima de un SKILL.md
+
+El frontmatter `description` es obligatorio — Claude lo usa para decidir cuando activar la skill automaticamente.
+
+```markdown
+---
+description: Una oracion. Que hace. Cuando usarlo. Keywords que lo disparan.
+---
+
+## Comandos
+
+### /nombre subcomando
+
+Instrucciones para Claude. URL exacta a fetchear. Formato de respuesta esperado.
+
+Fetch: https://api.ejemplo.com/datos
+
+## Manejo de errores
+
+Si la URL principal no responde: [fallback concreto].
+
+## Tono
+
+[Como debe sonar Claude al responder]
+```
+
+### Reglas que nunca se violan
+
+- Frontmatter con `description` obligatorio
+- Nunca hardcodear montos, fechas ni requisitos — siempre WebFetch/WebSearch a fuente primaria
+- URL exacta a fetchear para cada comando
+- Formato de respuesta definido con bloque de codigo de ejemplo
+- Fallback si la URL principal falla
+- Siempre mostrar fuente y fecha del dato en la respuesta
+
+### Referencia oficial de skills
+
+Para el spec completo de frontmatter, argumentos, invocacion, subagents y patrones avanzados:
+
+**https://code.claude.com/docs/en/skills**
+
+Indice de toda la documentacion disponible: https://code.claude.com/docs/llms.txt
+
+---
+
+## 6. Workflows de desarrollo
+
+### Resolver un issue
+
+La skill `/dev resolver #N` implementa el flujo completo: leer el issue, entender que hay que hacer, verificar fuentes, implementar, testear y abrir un PR.
+
+```bash
+/dev resolver #5
+```
+
+Ver `skills/dev/SKILL.md` para el detalle paso a paso.
+
+### Cargar un issue proactivo
+
+Cuando un agente detecta un caso no cubierto, una fuente caida o una mejora obvia mientras trabaja con un plugin, puede registrarlo como issue en lugar de solo mencionarlo en el chat.
+
+**Estado:** en desarrollo — ver [issue #4](https://github.com/kvothesson/ar-plugins/issues/4).
+
+El criterio de cuando cargar y el formato estandar se esta definiendo iterativamente. Por ahora: si encontras algo que vale registrar, cargalo con titulo descriptivo y contexto suficiente para que otro agente lo resuelva sin esta conversacion.
+
+### Crear un plugin nuevo (paso a paso)
+
+1. Leer SPEC.md para entender que hay que construir
+2. Verificar que las URLs/APIs funcionen con WebFetch antes de escribir el SKILL.md
+3. Crear el directorio local con la estructura obligatoria
+4. Escribir en orden: `plugin.json` -> `SKILL.md` -> `.gitignore` -> `README.md`
+5. Testear cada comando del SKILL.md (fetch real, fallback)
+6. Crear el repo bajo `kvothesson/<nombre>` y pushear
+7. Actualizar `marketplace.json` en este repo
+
+```bash
+# Paso 6 — crear repo
+cd /tmp/<nombre>
+git init && git add -A
+git commit -m "feat: plugin <nombre> v1.0.0 — <descripcion corta>"
+gh repo create kvothesson/<nombre> --public \
+  --description "Plugin de Claude Code — <descripcion>" \
+  --source . --remote origin --push
+
+# Paso 7 — actualizar marketplace
+gh repo clone kvothesson/ar-plugins /tmp/ar-plugins-mkt
+cd /tmp/ar-plugins-mkt
+# editar .claude-plugin/marketplace.json — agregar la entrada nueva
+git add .claude-plugin/marketplace.json
+git commit -m "feat: agrega <nombre> al marketplace"
+git push && rm -rf /tmp/ar-plugins-mkt
+```
+
+### Actualizar un plugin existente
+
+```bash
+gh repo clone kvothesson/<nombre> /tmp/<nombre>
+cd /tmp/<nombre>
+git checkout -b fix/<descripcion>
+# editar lo necesario
+git add -A && git commit -m "fix: <descripcion>"
+git push origin fix/<descripcion>
+gh pr create --repo kvothesson/<nombre> \
+  --title "<descripcion>" \
+  --body "Describe el cambio y como se teseto"
+rm -rf /tmp/<nombre>
+```
+
+### Checklist antes de publicar
+
+- [ ] `plugin.json` tiene name, version, description y skills correctos
+- [ ] `SKILL.md` tiene frontmatter con `description`
+- [ ] Cada URL de fetch verificada y funcional
+- [ ] Cada skill tiene formato de respuesta definido en bloque de codigo
+- [ ] Cada skill tiene fallback operativo
+- [ ] README tiene ejemplos con datos reales (no placeholders)
+- [ ] README tiene seccion "Fuentes" con URLs
+- [ ] `.gitignore` existe
+- [ ] Repo creado bajo `kvothesson/<nombre>` con `--public`
+- [ ] `marketplace.json` actualizado
+
+---
+
+## 7. Principios
 
 | Principio | Como aplicarlo |
 |-----------|----------------|
 | **Sin hardcodear datos que cambian** | Montos, fechas, requisitos: siempre WebFetch/WebSearch a fuente primaria |
 | **Fuente primaria siempre** | Sites oficiales (.gob.ar). Medios solo si el organismo no publica algo directamente |
-| **Siempre mostrar fecha y fuente** | Cada bloque de respuesta incluye `Fuente: [organismo] — [url]` y fecha del dato |
+| **Siempre mostrar fecha y fuente** | Cada bloque de respuesta incluye fuente y fecha del dato |
 | **Lenguaje llano** | Pasos concretos, sin jerga institucional. El usuario tiene que poder actuar con lo que lee |
 | **Privacidad** | No pedir ni transmitir datos del usuario. CUIL, DNI, claves: el usuario los ingresa el solo |
 | **Fallback** | Si la URL principal no responde, el skill tiene una alternativa (otra URL o WebSearch) |
 
 ---
 
-## 5. Plugins pendientes (por prioridad)
+## 8. Referencias
 
-Ver `SPEC.md` para descripcion completa y skills de cada uno.
-
-| Plugin | Prioridad | Fuentes sugeridas |
-|--------|-----------|-------------------|
-| `laburo` | Media | Encuesta sueldos SysArg, LinkedIn, remotar.com |
-| `derecho` | Media | infoleg.gob.ar, saij.gob.ar, mpd.gov.ar |
-| `dato` | Media | apis.datos.gob.ar, datasets.gob.ar, INDEC |
-| `salud` | Normal | sssalud.gob.ar, pami.org.ar |
-| `startup` | Normal | agencia.gob.ar, FONTAR |
-| `medios` | Normal | multiples fuentes, requiere WebSearch |
-| `educacion` | Normal | becas.gob.ar, universidades nacionales |
-
----
-
-## 6. Checklist antes de publicar un plugin nuevo
-
-- [ ] `plugin.json` tiene `name`, `version`, `description` y `skills` correctos
-- [ ] `SKILL.md` tiene frontmatter con `description`
-- [ ] Cada skill tiene su URL de fetch verificada y funcional
-- [ ] Cada skill tiene formato de respuesta definido en bloque de codigo
-- [ ] Cada skill tiene fallback si la URL principal falla
-- [ ] README tiene ejemplos con datos reales (no placeholders)
-- [ ] README tiene seccion "Fuentes" con URLs
-- [ ] `.gitignore` existe
-- [ ] Repo creado bajo `kvothesson/<nombre>` con `--public`
-- [ ] `marketplace.json` actualizado con el nuevo plugin
-
----
-
-## 7. Comandos de referencia rapida
-
-```bash
-# Ver plugins actuales en marketplace
-gh api repos/kvothesson/ar-plugins/contents/marketplace.json \
-  | python -c "import sys,json,base64; d=json.load(sys.stdin); print(base64.b64decode(d['content']).decode())"
-
-# Ver SPEC completo
-gh api repos/kvothesson/ar-plugins/contents/SPEC.md \
-  | python -c "import sys,json,base64; d=json.load(sys.stdin); print(base64.b64decode(d['content']).decode())"
-
-# Ver SKILL.md de tramite (referencia)
-gh api repos/kvothesson/tramite/contents/skills/tramite/SKILL.md \
-  | python -c "import sys,json,base64; d=json.load(sys.stdin); print(base64.b64decode(d['content']).decode())"
-
-# Ver SKILL.md de arca (referencia)
-gh api repos/kvothesson/arca/contents/skills/arca/SKILL.md \
-  | python -c "import sys,json,base64; d=json.load(sys.stdin); print(base64.b64decode(d['content']).decode())"
-
-# Ver README de cualquier plugin
-gh api repos/kvothesson/<nombre>/contents/README.md \
-  | python -c "import sys,json,base64; d=json.load(sys.stdin); print(base64.b64decode(d['content']).decode())"
-```
+| Recurso | Donde |
+|---------|-------|
+| Spec de plugins planificados | `SPEC.md` en este repo |
+| Documentacion oficial de skills | https://code.claude.com/docs/en/skills |
+| Indice completo de docs de Claude Code | https://code.claude.com/docs/llms.txt |
+| Plugin de referencia — economia | https://github.com/kvothesson/arca |
+| Plugin de referencia — tramites | https://github.com/kvothesson/tramite |
+| Issues y roadmap | https://github.com/kvothesson/ar-plugins/issues |
+| Workflow resolver issue | `skills/dev/SKILL.md` en este repo |
