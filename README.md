@@ -285,13 +285,29 @@ Eso significa:
 
 ---
 
-## Agregar un plugin nuevo al marketplace
+## Desarrollo — agregar o modificar plugins
 
-Ver [AGENT.md](./AGENT.md) — es el runbook completo para agentes y desarrolladores que quieran crear o actualizar plugins.
+Ver [AGENT.md](./AGENT.md) — runbook completo con arquitectura, estructura de plugins, skills y workflows de desarrollo.
 
-Resumen del flujo:
+### Skill /dev
 
-1. Leer el `SPEC.md` para entender qué plugin construir
+Este repo incluye la skill `/dev` para automatizar el desarrollo del marketplace. Instalala apuntando Claude Code a este repo:
+
+```bash
+claude --plugin-dir ~/plugins/ar-plugins
+```
+
+Luego podés resolver issues directamente desde Claude Code:
+
+```
+/dev resolver #5
+```
+
+La skill lee el issue, implementa el cambio, verifica las fuentes y abre el PR.
+
+### Flujo manual (resumen)
+
+1. Leer `SPEC.md` para entender qué plugin construir
 2. Verificar que las fuentes (URLs/APIs) funcionen
 3. Crear el plugin con la estructura estándar
 4. Publicar en `kvothesson/<nombre>` como repo público
