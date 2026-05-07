@@ -12,11 +12,46 @@ Resolvé el issue indicado de `kvothesson/ar-plugins`, implementá el cambio, ve
 
 ---
 
-#### Paso 1 — Leer el issue
+#### Paso 0 — Leer el issue y generar el plan
 
 ```bash
 gh issue view <número> --repo kvothesson/ar-plugins
 ```
+
+Antes de tocar cualquier archivo, determiná qué tipo de cambio es y generá la todolist con **TodoWrite**. Los ítems deben ser específicos para este issue — no genéricos. Ejemplos según tipo:
+
+**Plugin nuevo:**
+- [ ] Leer AGENT.md y SPEC.md
+- [ ] Verificar fuentes: [url1], [url2] (una por skill planificada)
+- [ ] Crear branch feat/issue-N-nombre
+- [ ] Crear estructura: plugin.json, SKILL.md, README, .gitignore
+- [ ] Testear cada comando del SKILL.md
+- [ ] Verificar checklist completo
+- [ ] Commit y push
+- [ ] Agregar entrada a marketplace.json
+- [ ] Actualizar README de ar-plugins si agrega skills/workflows
+- [ ] Abrir PR
+
+**Fix de plugin existente:**
+- [ ] Leer AGENT.md
+- [ ] Clonar repo kvothesson/<nombre>
+- [ ] Crear branch fix/issue-N-descripcion
+- [ ] Implementar el fix concreto: [qué hay que cambiar]
+- [ ] Verificar que la URL/fuente afectada responde
+- [ ] Commit y push
+- [ ] Abrir PR
+
+**Cambio en marketplace o docs:**
+- [ ] Leer AGENT.md
+- [ ] Crear branch y hacer el cambio puntual
+- [ ] Commit y push
+- [ ] Abrir PR
+
+Marcá cada ítem como completado a medida que avanzás.
+
+---
+
+#### Paso 1 — Leer el contexto
 
 Determiná el tipo de cambio:
 - **Plugin nuevo** → seguir flujo completo
@@ -27,7 +62,7 @@ Determiná el tipo de cambio:
 
 #### Paso 2 — Leer el contexto
 
-Siempre leer AGENT.md antes de tocar archivos — es el contrato de calidad del ecosistema:
+Siempre leer AGENT.md antes de tocar archivos:
 
 ```bash
 gh api repos/kvothesson/ar-plugins/contents/AGENT.md --jq '.content' | base64 -d
