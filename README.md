@@ -21,6 +21,7 @@ Datos reales, fuentes primarias, lenguaje llano.
 | [medios](https://github.com/kvothesson/medios) | Agenda del dia, cobertura comparada por medio, verificacion de afirmaciones |
 | [educacion](https://github.com/kvothesson/educacion) | Becas, donde estudiar una carrera, certificaciones tech y recursos de ingles |
 | [facturar](https://github.com/kvothesson/facturar) | Facturacion electronica Monotributo via PyARCA — Facturas C y E, notas de credito |
+| [reportar](https://github.com/kvothesson/reportar) | Registra issues de mejora o fix en GitHub cuando el agente detecta algo accionable |
 
 ---
 
@@ -287,7 +288,7 @@ Eso significa:
 
 ## Desarrollo — agregar o modificar plugins
 
-Ver [AGENT.md](./AGENT.md) — runbook completo con arquitectura, estructura de plugins, skills y workflows de desarrollo.
+Ver [AGENT.md](./AGENT.md) — overview e índice. La documentación detallada está en [`.agents/`](.agents/) dividida por tema: marketplace, plugins, skills, workflows y principios.
 
 ### Skill /dev
 
@@ -318,6 +319,5 @@ La skill lee el issue, implementa el cambio, verifica las fuentes y abre el PR.
 ## Estado del marketplace
 
 ```bash
-gh api repos/kvothesson/ar-plugins/contents/marketplace.json \
-  | node -e "let d=''; process.stdin.on('data',c=>d+=c); process.stdin.on('end',()=>{const j=JSON.parse(d); console.log(Buffer.from(j.content,'base64').toString())})"
+gh api repos/kvothesson/ar-plugins/contents/.claude-plugin/marketplace.json --jq '.content' | base64 -d
 ```
