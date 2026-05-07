@@ -143,9 +143,10 @@ Checklist antes de continuar:
 - [ ] Cada URL de fetch verificada y funcional
 - [ ] Cada skill tiene formato de respuesta definido en bloque de código
 - [ ] Cada skill tiene fallback
-- [ ] README tiene ejemplos con datos reales (no `$XX.XX` ni `[monto]`)
-- [ ] README tiene sección "Fuentes" con URLs
+- [ ] README del plugin tiene ejemplos con datos reales (no `$XX.XX` ni `[monto]`)
+- [ ] README del plugin tiene sección "Fuentes" con URLs
 - [ ] `.gitignore` existe
+- [ ] Si el cambio agrega skills o workflows nuevos: README de ar-plugins actualizado
 
 ---
 
