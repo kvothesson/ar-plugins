@@ -1,5 +1,5 @@
 ---
-description: Skill de desarrollo para ar-plugins. Dado un número de issue, lo implementa, verifica las fuentes y abre un PR. Usalo con /dev resolver #N.
+description: Skill de desarrollo para ar-plugins. Implementa issues con /dev resolver #N. Registra problemas detectados proactivamente con /dev reportar.
 ---
 
 # Skill: /dev
@@ -235,6 +235,158 @@ gh pr create \
 ## Cómo se testeó
 <URLs verificadas, datos obtenidos, fallbacks probados>"
 ```
+
+---
+
+### `/dev reportar`
+
+Registrá un issue accionable en el repo correcto cuando detectás un problema mientras trabajás con un plugin o con el ecosistema.
+
+Usalo explícitamente (`/dev reportar`) o dejá que el agente lo proponga solo cuando detecte algo que vale la pena registrar.
+
+---
+
+#### Paso 1 — Decidir si vale la pena abrir un issue
+
+Abrí un issue si y solo si el problema cumple las tres condiciones:
+
+1. **Es accionable**: otro agente puede resolverlo solo con la info del issue, sin contexto de esta sesión.
+2. **Es concreto**: no "podría mejorarse", sino "la URL X retorna 404" o "el comando Y no cubre el caso Z".
+3. **Tiene impacto real**: afecta a un usuario que intente usar el plugin/ecosistema hoy.
+
+No abras un issue si el problema es vago, trivial (typo menor, preferencia de estilo) o si ya lo mencionaste en el chat y el usuario lo va a resolver en esta misma sesión.
+
+**Casos típicos que justifican abrir:**
+- Una URL del SKILL.md no responde o cambió de dominio
+- El usuario pidió algo que el plugin casi cubre pero le falta un caso concreto
+- Hay un edge case que el SKILL.md no contempla y que va a aparecer frecuentemente
+- Falta un subcomando que sería evidente para cualquier usuario del plugin
+- El AGENT.md o SPEC.md tiene información desactualizada o contradictoria
+
+**Casos que NO justifican abrir:**
+- "Sería bueno mejorar el tono de la respuesta"
+- Un problema que ya se resolvió en esta sesión
+- Algo que el usuario no pidió y cuyo valor es discutible
+
+---
+
+#### Paso 2 — Determinar dónde va el issue
+
+El ecosistema tiene dos destinos posibles:
+
+| Repo destino | Cuándo |
+|---|---|
+| `kvothesson/<nombre-del-plugin>` | El problema es específico de un plugin: SKILL.md roto, fuente caída, edge case de ese plugin, mejora de comportamiento de ese plugin |
+| `kvothesson/ar-plugins` | El problema es del ecosistema: AGENT.md desactualizado, SPEC.md incorrecto, tooling de dev (`/dev resolver`), marketplace.json, estructura del sistema |
+
+**Cómo detectar de cuál es:**
+- ¿Estabas usando o analizando un plugin específico cuando detectaste el problema? → repo del plugin
+- ¿El problema afecta a cómo se desarrolla o publica cualquier plugin? → `ar-plugins`
+- ¿El problema es una URL o comportamiento de una skill específica? → repo del plugin
+- ¿No está claro? → `ar-plugins` con un label de triage
+
+```bash
+# Para identificar el nombre del plugin activo:
+# Si estás en el repo clonado: el nombre es el directorio
+# Si estás en conversación: el plugin que el usuario invocó o mencionó
+```
+
+---
+
+#### Paso 3 — Verificar que no existe un issue similar
+
+```bash
+# Buscar en el repo destino
+gh issue list --repo kvothesson/<repo-destino> --state open --search "<palabras clave del problema>"
+
+# Si aparece algo parecido: mencionarlo al usuario y preguntar si igual querés abrir uno nuevo
+# Si no aparece nada: continuar
+```
+
+No dupliques issues. Si existe uno abierto que cubre el mismo problema, mencioná el número en el chat y no abras uno nuevo.
+
+---
+
+#### Paso 4 — Redactar el issue
+
+Formato estándar — siempre seguirlo:
+
+**Título:** `[tipo]: descripción concreta en una línea`
+
+Tipos válidos:
+- `fix` — algo roto (URL caída, comportamiento incorrecto)
+- `feat` — algo que falta y tiene valor claro
+- `source` — fuente de datos cambió o dejó de responder
+- `edge-case` — caso no cubierto por el SKILL.md actual
+
+**Body:**
+
+```markdown
+## Contexto
+
+<Una o dos oraciones: en qué situación se detectó el problema. Sin datos personales del usuario.>
+
+## Problema
+
+<Qué falla o qué falta. Específico y accionable.>
+
+## Cómo reproducir / evidencia
+
+<URL que falló, comando que se intentó, respuesta que se obtuvo vs la esperada. Si aplica.>
+
+## Propuesta (opcional)
+
+<Solo si tenés una idea concreta de cómo resolverlo. No es obligatorio.>
+```
+
+No incluyas nombres ni datos del usuario. No incluyas especulaciones. No incluyas info que solo tenga sentido en esta sesión.
+
+---
+
+#### Paso 5 — Mostrárselo al usuario y pedir aprobación
+
+Antes de abrir cualquier issue, mostrar el borrador completo en el chat:
+
+```
+Detecté algo que vale registrar como issue. ¿Lo abro?
+
+Repo: kvothesson/<repo-destino>
+Título: [tipo]: descripción
+Body:
+---
+[contenido del body]
+---
+```
+
+Esperá una respuesta afirmativa antes de continuar. Si el usuario dice que no, o pide ajustes, incorporalos antes de abrir.
+
+---
+
+#### Paso 6 — Abrir el issue
+
+Solo después de la aprobación del usuario:
+
+```bash
+gh issue create \
+  --repo kvothesson/<repo-destino> \
+  --title "[tipo]: descripción concreta" \
+  --body "$(cat <<'EOF'
+## Contexto
+
+<contexto>
+
+## Problema
+
+<problema>
+
+## Cómo reproducir / evidencia
+
+<evidencia>
+EOF
+)"
+```
+
+Compartí el link del issue abierto en el chat.
 
 ---
 
