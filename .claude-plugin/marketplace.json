@@ -7,6 +7,18 @@
   },
   "plugins": [
     {
+      "name": "reportar",
+      "description": "Registra issues de mejora o fix en GitHub cuando el agente detecta un problema usando un plugin o el ecosistema",
+      "author": {
+        "name": "kvothesson"
+      },
+      "source": {
+        "source": "git",
+        "url": "https://github.com/kvothesson/reportar.git"
+      },
+      "homepage": "https://github.com/kvothesson/reportar"
+    },
+    {
       "name": "nodo",
       "description": "Contexto personal persistente entre sesiones de Claude Code",
       "author": {
