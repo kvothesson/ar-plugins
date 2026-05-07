@@ -107,6 +107,9 @@ Todo plugin tiene exactamente esta estructura:
   "name": "<nombre>",
   "version": "1.0.0",
   "description": "<descripcion corta sin emojis>",
+  "author": {
+    "name": "kvothesson"
+  },
   "skills": [
     {
       "name": "<nombre>",
@@ -115,6 +118,28 @@ Todo plugin tiene exactamente esta estructura:
   ]
 }
 ```
+
+Campos opcionales utiles: `homepage` (URL del repo), `repository` (objeto con `url`), `license`.
+
+### Namespacing de skills en plugins
+
+Las skills dentro de un plugin se invocan con el prefijo del nombre del plugin:
+
+```
+/nombre-plugin:nombre-skill [argumentos]
+```
+
+Por ejemplo, un plugin llamado `facturar` con una skill llamada `facturar` se invoca como `/facturar:facturar factura`.
+
+Cuando la skill y el plugin tienen el mismo nombre, el usuario puede invocar con `/nombre` directamente si no hay conflicto con otras skills instaladas.
+
+### Probar localmente antes de publicar
+
+```bash
+claude --plugin-dir /ruta/al/plugin
+```
+
+Desde Claude Code, ejecutar `/reload-plugins` para recargar cambios sin reiniciar. Probar cada skill con `/nombre-plugin:nombre-skill`.
 
 ### README.md
 
@@ -188,11 +213,27 @@ Si la URL principal no responde: [fallback concreto].
 - Fallback si la URL principal falla
 - Siempre mostrar fuente y fecha del dato en la respuesta
 
+### Tipos de plugins: datos vs wrappers de CLI
+
+Los plugins del ecosistema son de dos tipos:
+
+**Plugins de datos** (mayoria): hacen WebFetch/WebSearch a APIs y fuentes publicas. Reglas estandar de no hardcodear, mostrar fuente y fecha.
+
+**Plugins wrapper de CLI** (ej: `facturar`): el usuario tiene una herramienta instalada y el plugin traduce lenguaje natural a comandos Bash. Para estos:
+- No hay WebFetch a APIs propias — el skill construye y ejecuta el comando via Bash
+- Documentar prerequisitos de instalacion claramente (la tool que wrappea)
+- Detectar si la herramienta esta disponible antes de ejecutar
+- Confirmar siempre acciones destructivas o irreversibles antes de ejecutar
+
 ### Referencia oficial de skills
 
 Para el spec completo de frontmatter, argumentos, invocacion, subagents y patrones avanzados:
 
 **https://code.claude.com/docs/en/skills**
+
+Referencia completa de plugins (estructura, hooks, agentes, MCP, monitores):
+
+**https://code.claude.com/docs/en/plugins**
 
 Indice de toda la documentacion disponible: https://code.claude.com/docs/llms.txt
 
@@ -294,9 +335,11 @@ rm -rf /tmp/<nombre>
 | Recurso | Donde |
 |---------|-------|
 | Spec de plugins planificados | `SPEC.md` en este repo |
-| Documentacion oficial de skills | https://code.claude.com/docs/en/skills |
+| Documentacion oficial — crear plugins | https://code.claude.com/docs/en/plugins |
+| Documentacion oficial — skills | https://code.claude.com/docs/en/skills |
+| Documentacion oficial — marketplaces | https://code.claude.com/docs/en/plugin-marketplaces |
 | Indice completo de docs de Claude Code | https://code.claude.com/docs/llms.txt |
-| Plugin de referencia — economia | https://github.com/kvothesson/arca |
-| Plugin de referencia — tramites | https://github.com/kvothesson/tramite |
+| Plugin de referencia — datos (economia) | https://github.com/kvothesson/arca |
+| Plugin de referencia — wrapper CLI (facturacion) | https://github.com/kvothesson/facturar |
 | Issues y roadmap | https://github.com/kvothesson/ar-plugins/issues |
 | Workflow resolver issue | `skills/dev/SKILL.md` en este repo |

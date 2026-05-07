@@ -137,6 +137,18 @@
         "url": "https://github.com/kvothesson/educacion.git"
       },
       "homepage": "https://github.com/kvothesson/educacion"
+    },
+    {
+      "name": "facturar",
+      "description": "Facturacion electronica para Monotributo argentino via PyARCA — emite facturas C y E contra ARCA desde lenguaje natural",
+      "author": {
+        "name": "kvothesson"
+      },
+      "source": {
+        "source": "git",
+        "url": "https://github.com/kvothesson/facturar.git"
+      },
+      "homepage": "https://github.com/kvothesson/facturar"
     }
   ]
 }
