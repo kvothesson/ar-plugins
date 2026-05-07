@@ -1,0 +1,11 @@
+{
+  "name": "ar-plugins",
+  "version": "1.0.0",
+  "description": "Marketplace y herramientas de desarrollo para el ecosistema ar-plugins",
+  "skills": [
+    {
+      "name": "dev",
+      "path": "skills/dev/SKILL.md"
+    }
+  ]
+}
