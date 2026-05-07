@@ -20,6 +20,7 @@ Datos reales, fuentes primarias, lenguaje llano.
 | [startup](https://github.com/kvothesson/startup) | Fondos publicos y privados, constitucion de empresas, equity y pitch |
 | [medios](https://github.com/kvothesson/medios) | Agenda del dia, cobertura comparada por medio, verificacion de afirmaciones |
 | [educacion](https://github.com/kvothesson/educacion) | Becas, donde estudiar una carrera, certificaciones tech y recursos de ingles |
+| [facturar](https://github.com/kvothesson/facturar) | Facturacion electronica Monotributo via PyARCA — Facturas C y E, notas de credito |
 
 ---
 
@@ -245,6 +246,30 @@ BECAS PROGRESAR
   Inscripcion: becasprogresar.educacion.gob.ar o app Mi Argentina
 
 Fuente: argentina.gob.ar — 4 may 2026
+```
+
+### facturar — facturacion electronica Monotributo
+
+Se instala y configura solo la primera vez. Si PyARCA no esta, lo clona. Si el `.env` no esta, te guia campo por campo.
+
+```
+/facturar:facturar factura
+
+Voy a emitir:
+  Factura C — $1.500.000 — Empresa XYZ SRL
+  Periodo: 2026-04-01 → 2026-04-30
+  Ambiente: PRODUCCION ⚠️
+
+¿Confirmas?
+
+✅ Factura C emitida
+
+Numero:      5
+CAE:         12345678901234
+Vencimiento: 2026-05-17
+Monto:       $1.500.000
+Cliente:     Empresa XYZ SRL
+Periodo:     2026-04-01 → 2026-04-30
 ```
 
 ---
