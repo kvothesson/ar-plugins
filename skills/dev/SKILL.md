@@ -207,3 +207,16 @@ gh pr create \
 - Seguir AGENT.md al pie de la letra — es el contrato de calidad del ecosistema
 - Resolver con sentido común ante ambigüedad, sin preguntar lo obvio
 - Si algo está bloqueado (URL caída, permisos), informar el blocker concretamente antes de seguir
+
+---
+
+## Referencias
+
+Recursos a consultar según lo que pida el issue — no son siempre necesarios, usarlos cuando aplique:
+
+| Cuándo | Recurso |
+|---|---|
+| El issue involucra crear o modificar una skill | [Documentación de skills](https://code.claude.com/docs/en/skills) |
+| Necesitás descubrir otras páginas de docs | [Índice completo de docs](https://code.claude.com/docs/llms.txt) |
+| El issue involucra la estructura de un plugin | AGENT.md del repo (Paso 2) |
+| El issue involucra un plugin específico | SPEC.md del repo (Paso 2) |
