@@ -35,7 +35,7 @@ kvothesson/ar-plugins                  <- este repo
     plugin.json                        <- ar-plugins como plugin instalable (skills de dev)
   skills/
     dev/
-      SKILL.md                         <- /dev resolver #N (workflow de desarrollo)
+      SKILL.md                         <- /dev resolver #N, /dev reportar (workflows de desarrollo)
   AGENT.md                             <- este archivo (primer contacto)
   SPEC.md                              <- spec de todos los plugins planificados
   README.md                            <- documentacion publica del marketplace
@@ -255,9 +255,13 @@ Ver `skills/dev/SKILL.md` para el detalle paso a paso.
 
 Cuando un agente detecta un caso no cubierto, una fuente caida o una mejora obvia mientras trabaja con un plugin, puede registrarlo como issue en lugar de solo mencionarlo en el chat.
 
-**Estado:** en desarrollo — ver [issue #4](https://github.com/kvothesson/ar-plugins/issues/4).
+```bash
+/dev reportar
+```
 
-El criterio de cuando cargar y el formato estandar se esta definiendo iterativamente. Por ahora: si encontras algo que vale registrar, cargalo con titulo descriptivo y contexto suficiente para que otro agente lo resuelva sin esta conversacion.
+La skill determina automaticamente si el issue va al repo del plugin especifico o a `kvothesson/ar-plugins`, verifica que no exista un issue duplicado, redacta el borrador en formato estandar y pide aprobacion del usuario antes de abrirlo.
+
+Ver `skills/dev/SKILL.md` para el criterio de cuando abrir, el formato del issue y el flujo completo.
 
 ### Crear un plugin nuevo (paso a paso)
 
