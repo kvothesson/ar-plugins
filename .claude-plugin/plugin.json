@@ -1,8 +1,18 @@
 {
   "name": "ar-plugins",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Toolkit de desarrollo para el ecosistema ar-plugins — skills para resolver issues, crear y publicar plugins",
   "author": {
     "name": "kvothesson"
-  }
+  },
+  "skills": [
+    {
+      "name": "dev",
+      "path": "skills/dev/SKILL.md"
+    },
+    {
+      "name": "setup-ci",
+      "path": "skills/setup-ci/SKILL.md"
+    }
+  ]
 }
