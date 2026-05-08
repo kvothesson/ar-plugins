@@ -22,24 +22,32 @@ Si no se pasa repo, preguntar al usuario cuál quiere configurar.
 
 ---
 
-## Paso 1 — Verificar scope `workflow`
+## Paso 1 — Verificar y obtener scope `workflow`
 
 ```bash
 gh auth status 2>&1 | grep "Token scopes"
 ```
 
-Si el output **no contiene** `workflow`:
+Si el output **no contiene** `workflow`, correrlo automáticamente:
 
-```
-Para agregar workflows necesito el scope `workflow` en tu token de GitHub.
-Corré esto y aprobá el acceso en el browser:
-
-  gh auth refresh -s workflow
-
-Avisame cuando esté listo.
+```bash
+gh auth refresh -s workflow
 ```
 
-Detener y esperar confirmación del usuario antes de continuar.
+Este comando abre el browser para que el usuario apruebe el scope. Avisarle antes:
+
+```
+Necesito el scope `workflow` para crear los archivos en .github/workflows/.
+Abriendo el browser para que lo apruebes — es un solo click en "Authorize".
+```
+
+Esperar a que el comando termine (el usuario aprueba en el browser y el CLI confirma). Luego verificar que el scope quedó:
+
+```bash
+gh auth status 2>&1 | grep "Token scopes"
+```
+
+Si sigue sin tener `workflow`, reportar el error y detener.
 
 ---
 
