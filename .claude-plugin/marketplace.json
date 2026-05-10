@@ -15,6 +15,14 @@
       "category": "development"
     },
     {
+      "name": "bestiario",
+      "description": "Bichos digitales del universo Kvothesson. Observan, diagnostican, organizan y prueban el entorno. Cyber-folklore argentino/guaraní como skills de sistema.",
+      "author": { "name": "kvothesson" },
+      "source": { "source": "github", "repo": "kvothesson/bestiario-plugin" },
+      "homepage": "https://github.com/kvothesson/bestiario-plugin",
+      "category": "development"
+    },
+    {
       "name": "nodo",
       "description": "Contexto personal persistente entre sesiones de Claude Code",
       "author": { "name": "kvothesson" },
