@@ -117,6 +117,14 @@
       "source": { "source": "github", "repo": "kvothesson/facturar" },
       "homepage": "https://github.com/kvothesson/facturar",
       "category": "productivity"
+    },
+    {
+      "name": "mechas",
+      "description": "Las mechas neuronales de Kvothesson. Lyra analiza sesiones del Congreso argentino: transcripcion via YouTube, tres capas de analisis, accion sugerida.",
+      "author": { "name": "kvothesson" },
+      "source": { "source": "github", "repo": "kvothesson/mechas-plugin" },
+      "homepage": "https://github.com/kvothesson/mechas-plugin",
+      "category": "productivity"
     }
   ]
 }
