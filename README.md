@@ -3,6 +3,10 @@
 Plugins de Claude Code para vivir, trabajar y pensar en Argentina.
 Datos reales, fuentes primarias, lenguaje llano.
 
+![cover](assets/cover.png)
+
+![demo](assets/demo.gif)
+
 ---
 
 ## Plugins disponibles
