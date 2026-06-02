@@ -1,6 +1,8 @@
 # AR Plugins
 
-Plugins de Claude Code para vivir, trabajar y pensar en Argentina.
+Compatibles con **Claude Code** y **OpenAI Codex**.
+
+Plugins para vivir, trabajar y pensar en Argentina.
 Datos reales, fuentes primarias, lenguaje llano.
 
 <p align="center">
@@ -54,6 +56,20 @@ Para usar varios plugins a la vez, pasá múltiples `--plugin-dir`:
 ```bash
 claude --plugin-dir ~/plugins/arca --plugin-dir ~/plugins/tramite
 ```
+
+### Alternativa: OpenAI Codex
+
+Cada plugin incluye `AGENTS.md` — Codex lo detecta automáticamente al abrirse en el directorio del plugin.
+
+```bash
+git clone https://github.com/kvothesson/arca ~/plugins/arca
+cd ~/plugins/arca
+codex
+```
+
+No requiere `--plugin-dir` ni configuración adicional. Funciona igual con cualquier plugin del marketplace.
+
+---
 
 ### 3. Usar el comando del plugin
 
