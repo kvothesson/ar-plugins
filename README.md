@@ -32,30 +32,35 @@ Datos reales, fuentes primarias, lenguaje llano.
 | [educacion](https://github.com/kvothesson/educacion) | Becas, donde estudiar una carrera, certificaciones tech y recursos de ingles |
 | [facturar](https://github.com/kvothesson/facturar) | Facturacion electronica Monotributo via PyARCA — Facturas C y E, notas de credito |
 | [reportar](https://github.com/kvothesson/reportar) | Registra issues de mejora o fix en GitHub cuando el agente detecta algo accionable |
+| [daemons](https://github.com/kvothesson/daemons-plugin) | Bichos digitales que observan, diagnostican, organizan y prueban tu entorno |
+| [mechas](https://github.com/kvothesson/mechas-plugin) | Lyra analiza sesiones del Congreso: transcripción desde YouTube y acción sugerida |
 
 ---
 
 ## Instalación
 
-### 1. Clonar el plugin que necesitás
+Dentro de Claude Code, agregá el marketplace una sola vez:
+
+```
+/plugin marketplace add kvothesson/ar-plugins
+```
+
+Y después instalá el plugin que quieras:
+
+```
+/plugin install arca@ar-plugins
+```
+
+Reemplazá `arca` con cualquier plugin de la tabla. Para ver todos, corré `/plugin` y abrí la pestaña del marketplace.
+
+### Alternativa: un plugin suelto con `--plugin-dir`
 
 ```bash
 git clone https://github.com/kvothesson/arca ~/plugins/arca
-```
-
-Reemplazá `arca` con el nombre del plugin que quieras.
-
-### 2. Abrir Claude Code apuntando a ese directorio
-
-```bash
 claude --plugin-dir ~/plugins/arca
 ```
 
-Para usar varios plugins a la vez, pasá múltiples `--plugin-dir`:
-
-```bash
-claude --plugin-dir ~/plugins/arca --plugin-dir ~/plugins/tramite
-```
+Para usar varios a la vez, pasá múltiples `--plugin-dir`.
 
 ### Alternativa: OpenAI Codex
 
@@ -67,11 +72,11 @@ cd ~/plugins/arca
 codex
 ```
 
-No requiere `--plugin-dir` ni configuración adicional. Funciona igual con cualquier plugin del marketplace.
+No requiere configuración adicional. Funciona igual con cualquier plugin del marketplace.
 
 ---
 
-### 3. Usar el comando del plugin
+### Usar el comando del plugin
 
 ```
 /arca dolar
