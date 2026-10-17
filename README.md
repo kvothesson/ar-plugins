@@ -165,7 +165,7 @@ Ingreso bruto:               $80.000/mes (4 semanas x $20.000)
 Neto estimado:               $48.000/mes
 En dolares blue:             u$s 34/mes
 
-Canasta basica:              $417.680 (INDEC, dic 2025)
+Canasta basica:              $519.578 (INDEC, ago 2026)
 SMVM vigente:                $363.000 (mayo 2026)
 
 Fuente: INDEC / Secretaria de Trabajo / dolarapi.com — mayo 2026
