@@ -14,6 +14,7 @@ import os
 import re
 import socket
 import sys
+import time
 import urllib.error
 import urllib.request
 from concurrent.futures import ThreadPoolExecutor
@@ -65,13 +66,13 @@ def urls_de(texto):
     return vistas
 
 
-def probar(url):
+def probar(url, timeout=TIMEOUT):
     """Devuelve (estado, detalle). estado: ok | bloqueada | rota."""
     ultimo = None
     for _ in range(2):  # un reintento: los sitios .gob.ar a veces tardan
         req = urllib.request.Request(url, headers={"User-Agent": UA, "Accept": "*/*"})
         try:
-            with urllib.request.urlopen(req, timeout=TIMEOUT) as r:
+            with urllib.request.urlopen(req, timeout=timeout) as r:
                 cuerpo = r.read(200_000)
                 if "format=json" in url or "/api/" in url or "dolarapi" in url:
                     try:
@@ -112,6 +113,15 @@ def main():
 
     with ThreadPoolExecutor(max_workers=8) as pool:
         resultados = dict(zip(usos, pool.map(probar, usos)))
+
+    # Segunda pasada para las que no respondieron: algunos .gob.ar cortan un rato
+    # las conexiones desde los servidores de GitHub. Solo cuenta como rota si
+    # tampoco responde medio minuto después y con más paciencia.
+    sin_respuesta = [u for u, (e, d) in resultados.items() if e == "rota" and d.startswith("sin respuesta")]
+    if sin_respuesta:
+        time.sleep(30)
+        for u in sin_respuesta:
+            resultados[u] = probar(u, timeout=60)
 
     por_estado = {"rota": [], "bloqueada": [], "ok": []}
     for u, (estado, detalle) in sorted(resultados.items()):
