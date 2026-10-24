@@ -1,0 +1,34 @@
+name: Validar plugin
+
+# Corre `claude plugin validate` con la última versión de Claude Code.
+# Los repos de cada plugin lo llaman desde su propio workflow:
+#   uses: kvothesson/ar-plugins/.github/workflows/validar-plugin.yml@master
+# Acá también corre sobre ar-plugins (marketplace + skill /dev) en cada PR.
+on:
+  workflow_call:
+  pull_request:
+  push:
+    branches: [master]
+
+permissions:
+  contents: read
+
+jobs:
+  validar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Instalar Claude Code
+        run: |
+          npm install -g @anthropic-ai/claude-code@latest
+          claude --version
+
+      - name: claude plugin validate
+        # --profile directory: además falla si el directorio oficial de Anthropic
+        # rechazaría la postulación (sin licencia, sin README).
+        run: claude plugin validate . --profile directory
