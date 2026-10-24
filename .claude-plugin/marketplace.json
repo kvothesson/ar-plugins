@@ -1,128 +1,203 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-marketplace.json",
   "name": "ar-plugins",
-  "description": "Plugins de Claude Code para el ecosistema argentino. Datos reales de Argentina — organismos oficiales, APIs publicas, fuentes primarias.",
+  "description": "Plugins para Claude Code y Codex sobre Argentina: dólar e inflación al día, sueldos, facturación del monotributo, trámites y derechos. Datos de fuentes oficiales con fuente y fecha.",
   "owner": {
     "name": "kvothesson"
   },
   "plugins": [
     {
-      "name": "reportar",
-      "description": "Registra issues de mejora o fix en GitHub cuando el agente detecta un problema usando un plugin o el ecosistema",
-      "author": { "name": "kvothesson" },
-      "source": { "source": "github", "repo": "kvothesson/reportar" },
-      "homepage": "https://github.com/kvothesson/reportar",
-      "category": "development"
-    },
-    {
-      "name": "daemons",
-      "description": "Bichos digitales del universo Kvothesson. Observan, diagnostican, organizan y prueban el entorno. Cyber-folklore argentino/guaraní como skills de sistema.",
-      "author": { "name": "kvothesson" },
-      "source": { "source": "github", "repo": "kvothesson/daemons-plugin" },
-      "homepage": "https://github.com/kvothesson/daemons-plugin",
-      "category": "development"
-    },
-    {
-      "name": "nodo",
-      "description": "Contexto personal persistente entre sesiones de Claude Code",
-      "author": { "name": "kvothesson" },
-      "source": { "source": "github", "repo": "kvothesson/nodo" },
-      "homepage": "https://github.com/kvothesson/nodo",
-      "category": "productivity"
-    },
-    {
       "name": "arca",
-      "description": "Economia argentina en tiempo real: dolar, inflacion, sueldos, canasta",
-      "author": { "name": "kvothesson" },
-      "source": { "source": "github", "repo": "kvothesson/arca" },
+      "description": "Dólar oficial, blue, MEP y CCL, inflación del INDEC y canasta básica de Argentina, al día y con la fuente de cada dato.",
+      "author": {
+        "name": "kvothesson"
+      },
+      "source": {
+        "source": "github",
+        "repo": "kvothesson/arca"
+      },
       "homepage": "https://github.com/kvothesson/arca",
       "category": "productivity"
     },
     {
-      "name": "tramite",
-      "description": "Navegador de burocracia argentina: ANSES, ARCA/AFIP, DNI, registro automotor",
-      "author": { "name": "kvothesson" },
-      "source": { "source": "github", "repo": "kvothesson/tramite" },
-      "homepage": "https://github.com/kvothesson/tramite",
-      "category": "productivity"
-    },
-    {
       "name": "laburo",
-      "description": "Mercado laboral argentino: sueldos, paritarias, SMVM, tarifas para independientes y CV",
-      "author": { "name": "kvothesson" },
-      "source": { "source": "github", "repo": "kvothesson/laburo" },
+      "description": "Mercado laboral argentino: rangos de sueldo por puesto, paritarias, salario mínimo y tarifas freelance, con fuente y fecha.",
+      "author": {
+        "name": "kvothesson"
+      },
+      "source": {
+        "source": "github",
+        "repo": "kvothesson/laburo"
+      },
       "homepage": "https://github.com/kvothesson/laburo",
       "category": "productivity"
     },
     {
-      "name": "derecho",
-      "description": "Marco legal argentino accesible: laboral, consumidor, contratos, societario",
-      "author": { "name": "kvothesson" },
-      "source": { "source": "github", "repo": "kvothesson/derecho" },
-      "homepage": "https://github.com/kvothesson/derecho",
-      "category": "productivity"
-    },
-    {
-      "name": "dato",
-      "description": "Datos publicos de Argentina procesables: INDEC, elecciones, catastro, justicia",
-      "author": { "name": "kvothesson" },
-      "source": { "source": "github", "repo": "kvothesson/dato" },
-      "homepage": "https://github.com/kvothesson/dato",
+      "name": "facturar",
+      "description": "Facturación electrónica del monotributo contra ARCA (ex AFIP): facturas C y E y notas de crédito. Arranca en homologación y confirma antes de producción.",
+      "author": {
+        "name": "kvothesson"
+      },
+      "source": {
+        "source": "github",
+        "repo": "kvothesson/facturar"
+      },
+      "homepage": "https://github.com/kvothesson/facturar",
       "category": "productivity"
     },
     {
       "name": "guita",
       "description": "Finanzas personales para trabajadores argentinos: ingreso neto real, gastos ajustados por inflacion y runway",
-      "author": { "name": "kvothesson" },
-      "source": { "source": "github", "repo": "kvothesson/guita" },
+      "author": {
+        "name": "kvothesson"
+      },
+      "source": {
+        "source": "github",
+        "repo": "kvothesson/guita"
+      },
       "homepage": "https://github.com/kvothesson/guita",
+      "category": "productivity"
+    },
+    {
+      "name": "tramite",
+      "description": "Navegador de burocracia argentina: ANSES, ARCA/AFIP, DNI, registro automotor",
+      "author": {
+        "name": "kvothesson"
+      },
+      "source": {
+        "source": "github",
+        "repo": "kvothesson/tramite"
+      },
+      "homepage": "https://github.com/kvothesson/tramite",
+      "category": "productivity"
+    },
+    {
+      "name": "derecho",
+      "description": "Marco legal argentino accesible: laboral, consumidor, contratos, societario",
+      "author": {
+        "name": "kvothesson"
+      },
+      "source": {
+        "source": "github",
+        "repo": "kvothesson/derecho"
+      },
+      "homepage": "https://github.com/kvothesson/derecho",
       "category": "productivity"
     },
     {
       "name": "salud",
       "description": "Sistema de salud argentino: cobertura de obras sociales, PAMI, hospitales publicos y precios de medicamentos",
-      "author": { "name": "kvothesson" },
-      "source": { "source": "github", "repo": "kvothesson/salud" },
+      "author": {
+        "name": "kvothesson"
+      },
+      "source": {
+        "source": "github",
+        "repo": "kvothesson/salud"
+      },
       "homepage": "https://github.com/kvothesson/salud",
+      "category": "productivity"
+    },
+    {
+      "name": "dato",
+      "description": "Datos publicos de Argentina procesables: INDEC, elecciones, catastro, justicia",
+      "author": {
+        "name": "kvothesson"
+      },
+      "source": {
+        "source": "github",
+        "repo": "kvothesson/dato"
+      },
+      "homepage": "https://github.com/kvothesson/dato",
       "category": "productivity"
     },
     {
       "name": "startup",
       "description": "Ecosistema emprendedor argentino: fondos publicos y privados, constitucion de empresas, equity y pitch",
-      "author": { "name": "kvothesson" },
-      "source": { "source": "github", "repo": "kvothesson/startup" },
+      "author": {
+        "name": "kvothesson"
+      },
+      "source": {
+        "source": "github",
+        "repo": "kvothesson/startup"
+      },
       "homepage": "https://github.com/kvothesson/startup",
       "category": "productivity"
     },
     {
       "name": "medios",
       "description": "Ecosistema informativo argentino: agenda del dia, cobertura comparada por medio, verificacion de afirmaciones y contexto historico",
-      "author": { "name": "kvothesson" },
-      "source": { "source": "github", "repo": "kvothesson/medios" },
+      "author": {
+        "name": "kvothesson"
+      },
+      "source": {
+        "source": "github",
+        "repo": "kvothesson/medios"
+      },
       "homepage": "https://github.com/kvothesson/medios",
       "category": "productivity"
     },
     {
       "name": "educacion",
       "description": "Sistema educativo argentino: becas disponibles, donde estudiar una carrera, certificaciones tech y recursos gratuitos de ingles",
-      "author": { "name": "kvothesson" },
-      "source": { "source": "github", "repo": "kvothesson/educacion" },
+      "author": {
+        "name": "kvothesson"
+      },
+      "source": {
+        "source": "github",
+        "repo": "kvothesson/educacion"
+      },
       "homepage": "https://github.com/kvothesson/educacion",
       "category": "productivity"
     },
     {
-      "name": "facturar",
-      "description": "Facturacion electronica para Monotributo argentino via PyARCA — emite facturas C y E contra ARCA desde lenguaje natural",
-      "author": { "name": "kvothesson" },
-      "source": { "source": "github", "repo": "kvothesson/facturar" },
-      "homepage": "https://github.com/kvothesson/facturar",
+      "name": "reportar",
+      "description": "Registra issues de mejora o fix en GitHub cuando el agente detecta un problema usando un plugin o el ecosistema",
+      "author": {
+        "name": "kvothesson"
+      },
+      "source": {
+        "source": "github",
+        "repo": "kvothesson/reportar"
+      },
+      "homepage": "https://github.com/kvothesson/reportar",
+      "category": "development"
+    },
+    {
+      "name": "nodo",
+      "description": "Contexto personal persistente entre sesiones de Claude Code",
+      "author": {
+        "name": "kvothesson"
+      },
+      "source": {
+        "source": "github",
+        "repo": "kvothesson/nodo"
+      },
+      "homepage": "https://github.com/kvothesson/nodo",
       "category": "productivity"
+    },
+    {
+      "name": "daemons",
+      "description": "Bichos digitales del universo Kvothesson. Observan, diagnostican, organizan y prueban el entorno. Cyber-folklore argentino/guaraní como skills de sistema.",
+      "author": {
+        "name": "kvothesson"
+      },
+      "source": {
+        "source": "github",
+        "repo": "kvothesson/daemons-plugin"
+      },
+      "homepage": "https://github.com/kvothesson/daemons-plugin",
+      "category": "development"
     },
     {
       "name": "mechas",
       "description": "Las mechas neuronales de Kvothesson. Lyra analiza sesiones del Congreso argentino: transcripcion via YouTube, tres capas de analisis, accion sugerida.",
-      "author": { "name": "kvothesson" },
-      "source": { "source": "github", "repo": "kvothesson/mechas-plugin" },
+      "author": {
+        "name": "kvothesson"
+      },
+      "source": {
+        "source": "github",
+        "repo": "kvothesson/mechas-plugin"
+      },
       "homepage": "https://github.com/kvothesson/mechas-plugin",
       "category": "productivity"
     }
