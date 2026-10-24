@@ -29,28 +29,10 @@ jobs:
         run: |
           set +e
           python scripts/check_fuentes.py --reporte reporte.md
-          echo "rotas=$?" >> "$GITHUB_OUTPUT"
+          echo "codigo=$?" >> "$GITHUB_OUTPUT"
           cat reporte.md >> "$GITHUB_STEP_SUMMARY"
 
       - name: Abrir, actualizar o cerrar el issue
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          ROTAS: ${{ steps.chequeo.outputs.rotas }}
-        run: |
-          gh label create fuente-rota --color d73a4a --description "Una fuente de datos de un plugin dejó de responder" --force
-          abierto=$(gh issue list --label fuente-rota --state open --json number --jq '.[0].number // empty')
-          run_url="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
-          if [ "$ROTAS" = "1" ]; then
-            printf '\n[Corrida del chequeo](%s)\n' "$run_url" >> reporte.md
-            if [ -n "$abierto" ]; then
-              gh issue edit "$abierto" --body-file reporte.md
-              gh issue comment "$abierto" --body "Siguen rotas al $(date -u +%F). Reporte actualizado arriba."
-            else
-              gh issue create --title "Fuentes rotas en los plugins" --label fuente-rota --body-file reporte.md
-            fi
-          elif [ "$ROTAS" = "0" ] && [ -n "$abierto" ]; then
-            gh issue close "$abierto" --comment "Todas las fuentes responden al $(date -u +%F). [Corrida]($run_url)"
-          elif [ "$ROTAS" != "0" ]; then
-            echo "::error::El chequeo falló por otra razón (código $ROTAS)"
-            exit 1
-          fi
+        run: bash scripts/issue_reporte.sh fuente-rota "Fuentes rotas en los plugins" "${{ steps.chequeo.outputs.codigo }}" reporte.md
