@@ -1,0 +1,46 @@
+name: Validación semanal de plugins
+
+# Todos los lunes 9:30 ART valida cada plugin del marketplace con la última
+# versión de Claude Code. Un cambio de esquema en Claude Code puede dejar a los
+# plugins sin poder instalarse sin que toquemos nada (pasó en octubre 2026 con
+# el campo `skills`). Si alguno falla abre un issue con label plugin-invalido.
+on:
+  schedule:
+    - cron: '30 12 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  validar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Instalar Claude Code
+        run: |
+          npm install -g @anthropic-ai/claude-code@latest
+          claude --version
+
+      - name: Validar todos los plugins
+        id: chequeo
+        run: |
+          set +e
+          python scripts/validar_marketplace.py --reporte reporte.md
+          echo "codigo=$?" >> "$GITHUB_OUTPUT"
+          cat reporte.md >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Abrir, actualizar o cerrar el issue
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: bash scripts/issue_reporte.sh plugin-invalido "Plugins que no validan" "${{ steps.chequeo.outputs.codigo }}" reporte.md
