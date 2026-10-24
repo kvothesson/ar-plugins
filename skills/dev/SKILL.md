@@ -145,17 +145,17 @@ git init
   "name": "<nombre>",
   "version": "1.0.0",
   "description": "<descripcion corta sin emojis>",
-  "skills": [
-    {
-      "name": "<nombre>",
-      "path": "skills/<nombre>/SKILL.md"
-    }
-  ]
+  "author": { "name": "Kvothesson", "url": "https://github.com/kvothesson" },
+  "homepage": "https://github.com/kvothesson/<nombre>",
+  "repository": "https://github.com/kvothesson/<nombre>",
+  "license": "MIT"
 }
 ```
 
+Sin campo `skills`: Claude Code encuentra solo `skills/<nombre>/SKILL.md`. El formato viejo (array de objetos con `name` y `path`) hace que el plugin no se pueda instalar. Copiar también el `LICENSE` de ar-plugins.
+
 **Reglas del SKILL.md (nunca violarlas):**
-- Frontmatter con `description` obligatorio
+- Frontmatter con `description` obligatorio, entre comillas simples (un `: ` sin comillas rompe el YAML y la skill carga sin descripción)
 - Nunca hardcodear montos, fechas ni requisitos — siempre WebFetch/WebSearch a fuente primaria
 - URL exacta a fetchear para cada comando
 - Formato de respuesta con bloque de código de ejemplo
@@ -173,7 +173,8 @@ Para cada comando del SKILL.md, ejecutá las búsquedas/fetches que el skill har
 
 Checklist antes de continuar:
 
-- [ ] `plugin.json` tiene name, version, description y skills correctos
+- [ ] `plugin.json` tiene name, version, description, author y license, sin campo `skills`
+- [ ] `claude plugin validate .` dice "Validation passed"
 - [ ] `SKILL.md` tiene frontmatter con `description`
 - [ ] Cada URL de fetch verificada y funcional
 - [ ] Cada skill tiene formato de respuesta definido en bloque de código

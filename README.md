@@ -1,9 +1,6 @@
 # AR Plugins
 
-Compatibles con **Claude Code** y **OpenAI Codex**.
-
-Plugins para vivir, trabajar y pensar en Argentina.
-Datos reales, fuentes primarias, lenguaje llano.
+Plugins para **Claude Code** y **OpenAI Codex** que saben cosas de Argentina: el dólar y la inflación de hoy, cuánto se cobra por tu laburo y cómo facturar al monotributo. Datos de fuentes oficiales, con fuente y fecha en cada respuesta.
 
 <p align="center">
   <img src="assets/cover.png" width="100%"/>
@@ -13,95 +10,45 @@ Datos reales, fuentes primarias, lenguaje llano.
   <img src="assets/demo.gif" width="680"/>
 </p>
 
----
+## Instalar
 
-## Plugins disponibles
+Dentro de Claude Code (v2.1.275 o posterior), un solo comando agrega el marketplace e instala el plugin:
 
-| Plugin | Que hace |
-|--------|----------|
-| [arca](https://github.com/kvothesson/arca) | Dólar, inflación, sueldos en tiempo real |
-| [tramite](https://github.com/kvothesson/tramite) | ANSES, ARCA/AFIP, DNI, registro automotor |
-| [laburo](https://github.com/kvothesson/laburo) | Sueldos, paritarias, SMVM, tarifas freelance, CV |
-| [derecho](https://github.com/kvothesson/derecho) | Marco legal: laboral, consumidor, contratos |
-| [dato](https://github.com/kvothesson/dato) | INDEC, elecciones, catastro, jurisprudencia |
-| [nodo](https://github.com/kvothesson/nodo) | Contexto personal persistente entre sesiones |
-| [guita](https://github.com/kvothesson/guita) | Ingreso neto real, gastos con inflacion y runway por situacion laboral |
-| [salud](https://github.com/kvothesson/salud) | Cobertura de obras sociales, PAMI, hospitales publicos y precios de medicamentos |
-| [startup](https://github.com/kvothesson/startup) | Fondos publicos y privados, constitucion de empresas, equity y pitch |
-| [medios](https://github.com/kvothesson/medios) | Agenda del dia, cobertura comparada por medio, verificacion de afirmaciones |
-| [educacion](https://github.com/kvothesson/educacion) | Becas, donde estudiar una carrera, certificaciones tech y recursos de ingles |
-| [facturar](https://github.com/kvothesson/facturar) | Facturacion electronica Monotributo via PyARCA — Facturas C y E, notas de credito |
-| [reportar](https://github.com/kvothesson/reportar) | Registra issues de mejora o fix en GitHub cuando el agente detecta algo accionable |
-| [daemons](https://github.com/kvothesson/daemons-plugin) | Bichos digitales que observan, diagnostican, organizan y prueban tu entorno |
-| [mechas](https://github.com/kvothesson/mechas-plugin) | Lyra analiza sesiones del Congreso: transcripción desde YouTube y acción sugerida |
+```
+/plugin install arca --marketplace kvothesson/ar-plugins
+```
 
----
-
-## Instalación
-
-Dentro de Claude Code, agregá el marketplace una sola vez:
+En versiones anteriores, en dos pasos:
 
 ```
 /plugin marketplace add kvothesson/ar-plugins
-```
-
-Y después instalá el plugin que quieras:
-
-```
 /plugin install arca@ar-plugins
 ```
 
-Reemplazá `arca` con cualquier plugin de la tabla. Para ver todos, corré `/plugin` y abrí la pestaña del marketplace.
+Cambiá `arca` por cualquier plugin de abajo.
 
-### Alternativa: un plugin suelto con `--plugin-dir`
-
-```bash
-git clone https://github.com/kvothesson/arca ~/plugins/arca
-claude --plugin-dir ~/plugins/arca
-```
-
-Para usar varios a la vez, pasá múltiples `--plugin-dir`.
-
-### Alternativa: OpenAI Codex
-
-Cada plugin incluye `AGENTS.md` — Codex lo detecta automáticamente al abrirse en el directorio del plugin.
-
-```bash
-git clone https://github.com/kvothesson/arca ~/plugins/arca
-cd ~/plugins/arca
-codex
-```
-
-No requiere configuración adicional. Funciona igual con cualquier plugin del marketplace.
+**Recibir los arreglos automáticamente.** Los marketplaces que no son de Anthropic vienen con la actualización automática apagada. Para prenderla: `/plugin` → pestaña **Marketplaces** → `ar-plugins` → **Enable auto-update**.
 
 ---
 
-### Usar el comando del plugin
+## Los tres para empezar
 
-```
-/arca dolar
-/tramite anses jubilacion
-/laburo sueldo desarrollador
-```
-
----
-
-## Ejemplos rápidos
-
-### arca — economía en tiempo real
+### arca: el dólar y la inflación de hoy
 
 ```
 /arca
 
-💵 Dólar — 3 may 2026
+💵 Dólar — 24 oct 2026
 
-Oficial     $1.365  / $1.415
-Blue        $1.380  / $1.400
-MEP         $1.437  / $1.448
-CCL         $1.492  / $1.494
-Tarjeta     $1.774  / $1.839
+Oficial     $1.500  / $1.550
+Blue        $1.545  / $1.565
+MEP         $1.557  / $1.564
+CCL         $1.649  / $1.654
+Tarjeta     $1.950  / $2.015
 
-Brecha blue vs oficial: +1,9%
+Brecha blue vs oficial: +1,0%
+
+Fuente: dolarapi.com — 24 oct 2026
 ```
 
 ```
@@ -109,14 +56,15 @@ Brecha blue vs oficial: +1,9%
 
 📈 Inflación — IPC Nacional
 
-Último mes (mar 2026):   3,38%
-Últimos 12 meses:       32,61%
-Acumulado 2026:          9,44%
+Último mes (ago 2026):    1,66%
+Últimos 12 meses:        33,54%
 
 Fuente: INDEC — apis.datos.gob.ar
 ```
 
-### laburo — mercado laboral
+### laburo: cuánto se cobra
+
+Rangos de sueldo por puesto, paritarias, salario mínimo, tarifas freelance y CV.
 
 ```
 /laburo sueldo desarrollador
@@ -127,160 +75,12 @@ Junior (0–2 años):   $1.200.000 – $1.800.000 bruto/mes
 Semi Senior (2–4):   $1.800.000 – $2.800.000 bruto/mes
 Senior (4+):         $2.800.000 – $4.500.000+ bruto/mes
 
-En dólares (blue):   u$s 850 – u$s 3.200/mes
-
 Fuente: encuesta SysArg, encuesta Openqube — mayo 2026
 ```
 
-### tramite — burocracia argentina
+### facturar: facturas del monotributo desde la terminal
 
-```
-/tramite anses jubilacion
-
-## Jubilación — ANSES
-
-Requisitos:
-- Mujeres: 60 años + 30 años de aportes
-- Hombres: 65 años + 30 años de aportes
-
-Haber mínimo vigente: $...  (se actualiza trimestralmente)
-Turno online: mi.anses.gob.ar
-
-Fuente: anses.gob.ar
-```
-
-### guita — finanzas personales
-
-```
-/guita repartidor
-
-## Ingreso neto real — Repartidor de plataforma
-
-Ingreso bruto:               $80.000/mes (4 semanas x $20.000)
-  Combustible:               -$14.000/mes
-  Mantenimiento moto:         -$6.000/mes
-  Cuota unipersonal:         -$10.000/mes
-  Internet celular:           -$2.000/mes
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Neto estimado:               $48.000/mes
-En dolares blue:             u$s 34/mes
-
-Canasta basica:              $519.578 (INDEC, ago 2026)
-SMVM vigente:                $363.000 (mayo 2026)
-
-Fuente: INDEC / Secretaria de Trabajo / dolarapi.com — mayo 2026
-```
-
-```
-/guita runway
-
-Ahorros:     u$s 3.000 = $4.200.000 al blue
-Gastos:      $688.000/mes
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Runway nominal:   6.1 meses (hasta noviembre 2026)
-Runway real:      5.6 meses (hasta octubre 2026)
-
-La inflacion (3.05%/mes) te quita 0.5 meses de runway real.
-
-Fuente: INDEC IPC / dolarapi.com — mayo 2026
-```
-
-### salud — sistema de salud argentino
-
-```
-/salud medicamento ibuprofeno
-
-💊 Ibuprofeno
-   Dato al 4 may 2026
-
-Principio activo: Ibuprofeno
-Presentaciones: 400mg, 600mg — comprimidos / suspension
-
-Precio aprox.: $2.800 — $6.500 (segun laboratorio y farmacia, may 2026)
-
-Generico disponible: Si
-  Ibuprofeno generico — hasta 50% mas barato que marcas como Ibupirac o Actron
-
-Cobertura:
-  Obras sociales (PMO): cubre con receta medica en muchos planes
-  PAMI: 40% de descuento en farmacias adheridas
-
-Necesitas receta: No (venta libre hasta 400mg)
-
-Fuente: argentina.gob.ar / kairosweb.com — may 2026
-```
-
-### startup — ecosistema emprendedor
-
-```
-/startup fondos
-
-🚀 Financiamiento para Emprendedores — 4 may 2026
-
-FONTAR (Fondo Tecnologico Argentino)
-  ANR: hasta USD 500.000 — requiere co-financiamiento propio
-  Quien aplica: empresas con proyecto de innovacion tecnologica en Argentina
-  Estado: convocatoria permanente (verificar apertura en agencia.gob.ar)
-  → https://www.agencia.gob.ar/fontar
-
-FONSOFT (Software y Servicios Informaticos)
-  ANR de hasta $15M para proyectos de I+D en software
-  → https://www.agencia.gob.ar/fonsoft
-
-SEPyME — Creditos PyME
-  Lineas para capital de trabajo, inversion, exportacion
-  → https://www.argentina.gob.ar/produccion/sepyme
-
-Fuente: argentina.gob.ar / agencia.gob.ar — 4 may 2026
-```
-
-### medios — ecosistema informativo
-
-```
-/medios verificar "la inflacion de marzo fue del 3%"
-
-🔍 Verificacion: "la inflacion de marzo fue del 3%"
-   Dato al 4 may 2026
-
-RESULTADO: ✅ Verificado (con matiz)
-
-QUE DICE LA FUENTE PRIMARIA
-  El INDEC publico el IPC de marzo 2026 con una variacion mensual del 3,1%
-  → https://www.indec.gob.ar/indec/web/Nivel4-Tema-3-5-31
-
-CONTEXTO IMPORTANTE
-  El 3% mensual equivale a un 42,6% anualizado si se mantuviera constante.
-
-Fuentes: indec.gob.ar — 4 may 2026
-```
-
-### educacion — sistema educativo
-
-```
-/educacion becas estudiante universitario
-
-🎓 Becas — estudiante universitario
-   Dato al 4 may 2026
-
-BECAS PROGRESAR
-  • Progresar Superior — universitario/terciario  ← aplica directamente
-
-  Monto: $35.000 / mes
-    (80% mensual + 20% al presentar certificado de regularidad)
-
-  Requisitos basicos:
-    • Argentino/a con 2+ anos de residencia
-    • Ingresos del grupo familiar <= 3 SMVM
-    • Inscripto como alumno regular
-
-  Inscripcion: becasprogresar.educacion.gob.ar o app Mi Argentina
-
-Fuente: argentina.gob.ar — 4 may 2026
-```
-
-### facturar — facturacion electronica Monotributo
-
-Se instala y configura solo la primera vez. Si PyARCA no esta, lo clona. Si el `.env` no esta, te guia campo por campo.
+Facturas C y E y notas de crédito contra ARCA (ex AFIP) con PyARCA. Se configura solo la primera vez, **arranca en homologación** (el ambiente de prueba de ARCA) y nunca emite en producción sin que confirmes.
 
 ```
 /facturar:facturar factura
@@ -291,62 +91,90 @@ Voy a emitir:
   Ambiente: PRODUCCION ⚠️
 
 ¿Confirmas?
-
-✅ Factura C emitida
-
-Numero:      5
-CAE:         12345678901234
-Vencimiento: 2026-05-17
-Monto:       $1.500.000
-Cliente:     Empresa XYZ SRL
-Periodo:     2026-04-01 → 2026-04-30
 ```
+
+---
+
+## Para tu equipo
+
+Un plugin se puede activar para todo un repositorio. Queda anotado en `.claude/settings.json`, que se commitea, y cada persona del equipo lo instala una vez:
+
+```bash
+claude plugin install facturar@ar-plugins --scope project
+```
+
+Sirve, por ejemplo, para tener `facturar` en el repo de administración de una consultora o `arca` en el de finanzas.
+
+---
+
+## Todos los plugins
+
+| Plugin | Qué hace |
+|--------|----------|
+| [arca](https://github.com/kvothesson/arca) | Dólar, inflación, canasta y tu sueldo en dólares |
+| [laburo](https://github.com/kvothesson/laburo) | Sueldos, paritarias, salario mínimo, tarifas freelance, CV |
+| [facturar](https://github.com/kvothesson/facturar) | Facturación electrónica del monotributo: facturas C y E, notas de crédito |
+| [guita](https://github.com/kvothesson/guita) | Ingreso neto real, gastos ajustados por inflación y runway |
+| [tramite](https://github.com/kvothesson/tramite) | ANSES, ARCA (ex AFIP), DNI, registro automotor |
+| [derecho](https://github.com/kvothesson/derecho) | Derecho laboral, del consumidor, contratos y sociedades en lenguaje llano |
+| [salud](https://github.com/kvothesson/salud) | Obras sociales, PAMI, hospitales públicos y precios de medicamentos |
+| [dato](https://github.com/kvothesson/dato) | INDEC, elecciones, catastro, jurisprudencia |
+| [startup](https://github.com/kvothesson/startup) | Fondos públicos y privados, constitución de SAS, equity y pitch |
+| [medios](https://github.com/kvothesson/medios) | Agenda del día, cobertura comparada por medio, verificación de afirmaciones |
+| [educacion](https://github.com/kvothesson/educacion) | Becas, dónde estudiar cada carrera, certificaciones e inglés gratis |
+
+**Herramientas y extras:**
+
+| Plugin | Qué hace |
+|--------|----------|
+| [reportar](https://github.com/kvothesson/reportar) | Cuando el agente detecta un problema en un plugin, te ofrece abrir el issue con el contexto |
+| [nodo](https://github.com/kvothesson/nodo) | Contexto personal que persiste entre sesiones |
+| [daemons](https://github.com/kvothesson/daemons-plugin) | Bichos del folklore que observan, diagnostican y ordenan tu entorno |
+| [mechas](https://github.com/kvothesson/mechas-plugin) | Análisis de sesiones del Congreso desde YouTube |
 
 ---
 
 ## Cómo funcionan
 
-Cada plugin es una carpeta con un `SKILL.md` que le dice a Claude qué hacer cuando usás su comando. No hay código ejecutable — es Claude el que busca los datos en fuentes oficiales en el momento en que preguntás.
+Cada plugin es una carpeta con un `SKILL.md` que le dice al agente qué fuentes oficiales consultar cuando usás su comando. No hay caché ni base de datos propia: el dato se busca en el momento en sitios .gob.ar, APIs del INDEC y fuentes primarias, y la respuesta siempre dice de dónde salió y cuándo.
 
-Eso significa:
-- Los datos son siempre actuales (no hay caché)
-- Las fuentes son primarias (sitios .gob.ar, APIs del INDEC, etc.)
-- Claude siempre muestra de dónde viene el dato y cuándo fue obtenido
+Todos los lunes un chequeo automático prueba cada fuente que usan los plugins y abre un issue si alguna deja de responder.
+
+### Con OpenAI Codex
+
+Cada plugin trae un `AGENTS.md` que Codex lee al abrirse en su carpeta:
+
+```bash
+git clone https://github.com/kvothesson/arca ~/plugins/arca
+cd ~/plugins/arca
+codex
+```
+
+### Un plugin suelto, sin marketplace
+
+```bash
+git clone https://github.com/kvothesson/arca ~/plugins/arca
+claude --plugin-dir ~/plugins/arca
+```
 
 ---
 
-## Desarrollo — agregar o modificar plugins
+## ¿Lo usaste?
 
-Ver [AGENT.md](./AGENT.md) — overview e índice. La documentación detallada está en [`.agents/`](.agents/) dividida por tema: marketplace, plugins, skills, workflows y principios.
+Si un plugin te sirvió para algo real (facturar, un trámite, negociar un sueldo) o te falló, contalo en un [issue](https://github.com/kvothesson/ar-plugins/issues/new/choose). Eso es lo que decide qué se mejora.
 
-### Skill /dev
+---
 
-Este repo incluye la skill `/dev` para automatizar el desarrollo del marketplace. Instalala apuntando Claude Code a este repo:
+## Desarrollo
+
+Ver [AGENT.md](./AGENT.md) y la documentación en [`.agents/`](.agents/). Este repo incluye la skill `/dev`, que lee un issue, implementa el cambio, verifica las fuentes y abre el PR:
 
 ```bash
 claude --plugin-dir ~/plugins/ar-plugins
 ```
 
-Luego podés resolver issues directamente desde Claude Code:
-
 ```
 /dev resolver #5
 ```
 
-La skill lee el issue, implementa el cambio, verifica las fuentes y abre el PR.
-
-### Flujo manual (resumen)
-
-1. Leer `SPEC.md` para entender qué plugin construir
-2. Verificar que las fuentes (URLs/APIs) funcionen
-3. Crear el plugin con la estructura estándar
-4. Publicar en `kvothesson/<nombre>` como repo público
-5. Agregar la entrada al `marketplace.json` de este repo
-
----
-
-## Estado del marketplace
-
-```bash
-gh api repos/kvothesson/ar-plugins/contents/.claude-plugin/marketplace.json --jq '.content' | base64 -d
-```
+Antes de publicar un plugin, `claude plugin validate .` tiene que decir "Validation passed".
