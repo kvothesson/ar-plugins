@@ -189,6 +189,19 @@
       "category": "development"
     },
     {
+      "name": "aparecidos",
+      "description": "Los bichos del folklore se dejan ver: el Pombero, la Luz Mala, el Lobizón y cinco más recorren tu pantalla y te dicen cosas, como el clip de Word pero del monte.",
+      "author": {
+        "name": "kvothesson"
+      },
+      "source": {
+        "source": "github",
+        "repo": "kvothesson/aparecidos"
+      },
+      "homepage": "https://github.com/kvothesson/aparecidos",
+      "category": "entertainment"
+    },
+    {
       "name": "mechas",
       "description": "Las mechas neuronales de Kvothesson. Lyra analiza sesiones del Congreso argentino: transcripcion via YouTube, tres capas de analisis, accion sugerida.",
       "author": {

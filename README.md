@@ -130,6 +130,7 @@ Sirve, por ejemplo, para tener `facturar` en el repo de administración de una c
 | [reportar](https://github.com/kvothesson/reportar) | Cuando el agente detecta un problema en un plugin, te ofrece abrir el issue con el contexto |
 | [nodo](https://github.com/kvothesson/nodo) | Contexto personal que persiste entre sesiones |
 | [daemons](https://github.com/kvothesson/daemons-plugin) | Bichos del folklore que observan, diagnostican y ordenan tu entorno |
+| [aparecidos](https://github.com/kvothesson/aparecidos) | Los mismos bichos, sueltos por tu pantalla diciendo cosas |
 | [mechas](https://github.com/kvothesson/mechas-plugin) | Análisis de sesiones del Congreso desde YouTube |
 
 ---
