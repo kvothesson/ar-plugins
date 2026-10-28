@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://kvothesson.com/ar-plugins/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="AR Plugins: Claude Code y Codex para vivir en Argentina">
+<meta property="og:description" content="15 plugins gratis y abiertos para Claude Code y Codex: dólar e inflación en vivo, trámites, sueldos, derechos, salud, facturación del monotributo. Se instalan en una línea.">
+<meta property="og:url" content="https://kvothesson.com/ar-plugins/">
+<meta property="og:locale" content="es_AR">
+<meta property="og:image" content="https://kvothesson.com/ar-plugins/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://kvothesson.com/ar-plugins/og.jpg">
+<title>AR Plugins</title>
+<meta name="description" content="15 plugins gratis y abiertos para Claude Code y Codex: dólar e inflación en vivo, trámites, sueldos, derechos, salud, facturación del monotributo. Se instalan en una línea.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: una columna; el comando de instalación es la pieza central y cada plugin muestra el comando que se tipea, no un ícono. Celeste computa, sol señala. */
+:root {
+  --bg: #f1f5f9;
+  --surface: #ffffff;
+  --fg: #0d1a26;
+  --muted: #4a5d6e;
+  --line: #cfdbe5;
+  --sky: #1667a0;
+  --sky-soft: #dcebf6;
+  --sun: #a8650a;
+  --sun-soft: #f7e7c8;
+  --term-bg: #0b1622;
+  --term-fg: #d6e6f2;
+  --term-dim: #7d93a6;
+  --display: "Bricolage Grotesque", "Arial Narrow", system-ui, sans-serif;
+  --body: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #08111a; --surface: #0f1c28; --fg: #dbe8f1; --muted: #8ea4b5; --line: #20344a;
+    --sky: #74bdf0; --sky-soft: #132d42; --sun: #f0b54f; --sun-soft: #3a2a10;
+    --term-bg: #050c13; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #08111a; --surface: #0f1c28; --fg: #dbe8f1; --muted: #8ea4b5; --line: #20344a;
+  --sky: #74bdf0; --sky-soft: #132d42; --sun: #f0b54f; --sun-soft: #3a2a10;
+  --term-bg: #050c13; color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--bg); color: var(--fg);
+  font-family: var(--body); font-size: 1.0625rem; line-height: 1.6;
+  padding-inline: 16px; padding-block: 0 72px;
+}
+.wrap { max-width: 46rem; margin-inline: auto; display: grid; gap: 4rem; }
+h1, h2, h3 { font-family: var(--display); line-height: 1.08; text-wrap: balance; margin: 0; }
+p { margin: 0; }
+a { color: var(--sky); text-underline-offset: 3px; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--sun); outline-offset: 2px; }
+code { font-family: var(--mono); font-size: .9em; }
+
+header { padding-top: 4.5rem; display: grid; gap: 1.25rem; }
+.kicker { font-family: var(--mono); font-size: .8rem; letter-spacing: .08em; text-transform: uppercase; color: var(--sun); }
+h1 { font-size: clamp(2.4rem, 7vw, 4rem); font-weight: 800; letter-spacing: -.02em; }
+h1 em { font-style: normal; color: var(--sky); }
+.lede { font-size: 1.2rem; color: var(--muted); max-width: 36rem; }
+
+.install { display: grid; gap: .75rem; }
+.term {
+  background: var(--term-bg); color: var(--term-fg); border-radius: 10px;
+  padding: 1rem 1.1rem; font-family: var(--mono); font-size: .95rem;
+  display: grid; gap: .55rem; overflow-x: auto;
+}
+.term .row { display: flex; align-items: center; gap: .75rem; justify-content: space-between; }
+.term .cmd { min-width: 0; overflow-wrap: anywhere; }
+.term .cmd::before { content: "> "; color: var(--term-dim); }
+.term .cmd.sh::before { content: "$ "; }
+.install .tool { font-family: var(--mono); font-size: .8rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin-top: .5rem; }
+.term .note { color: var(--term-dim); font-size: .8rem; }
+.copy {
+  flex: none; font: 600 .75rem var(--mono); color: var(--term-fg);
+  background: transparent; border: 1px solid #2c4256; border-radius: 6px;
+  padding: .3rem .6rem; cursor: pointer;
+}
+.copy:hover { border-color: var(--term-dim); }
+.copy[data-ok] { color: #7fd99a; border-color: #2f6b45; }
+.install p { font-size: .95rem; color: var(--muted); }
+
+section { display: grid; gap: 1.5rem; }
+.hint { font-size: .95rem; color: var(--muted); margin-top: -.75rem; }
+h2 { font-size: 1.7rem; font-weight: 700; }
+.group { display: grid; gap: .9rem; }
+.group h3 { font-family: var(--mono); font-size: .8rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.grid { display: grid; gap: .75rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 21rem), 1fr)); }
+.card {
+  background: var(--surface); border: 1px solid var(--line); border-radius: 10px;
+  padding: 1rem 1.1rem; display: grid; gap: .45rem; align-content: start;
+}
+.card .top { display: flex; align-items: baseline; justify-content: space-between; gap: .5rem; }
+.card .name { font-family: var(--display); font-weight: 700; font-size: 1.2rem; text-decoration: none; color: var(--fg); }
+.card .name:hover { color: var(--sky); }
+.card .inst { font: .72rem var(--mono); color: var(--muted); white-space: nowrap; }
+.card p { font-size: .95rem; color: var(--muted); line-height: 1.5; }
+.card .try { font-family: var(--mono); font-size: .8rem; color: var(--sky); background: var(--sky-soft); border-radius: 5px; padding: .2rem .45rem; justify-self: start; }
+
+.facts { display: grid; gap: .9rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr)); }
+.fact { border-top: 2px solid var(--sun); padding-top: .7rem; display: grid; gap: .3rem; }
+.fact b { font-family: var(--display); font-size: 1.05rem; }
+.fact span { font-size: .93rem; color: var(--muted); }
+
+footer { display: grid; gap: .6rem; font-size: .93rem; color: var(--muted); border-top: 1px solid var(--line); padding-top: 1.5rem; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <span class="kicker">ar-plugins · gratis, abiertos, para Claude Code y Codex</span>
+  <h1>Claude Code y Codex, <em>para vivir en Argentina</em></h1>
+  <p class="lede">Quince plugins que le dan a tu agente lo que no sabe de acá: el dólar y la inflación de hoy, cómo se saca un turno, cuánto se cobra, qué dice la ley y cómo se factura el monotributo. Con fuentes oficiales y en lenguaje llano.</p>
+</header>
+
+<div class="install">
+  <h3 class="tool">Claude Code</h3>
+  <div class="term" role="group" aria-label="Instalación en Claude Code">
+    <div class="row"><span class="cmd">/plugin marketplace add kvothesson/ar-plugins</span><button class="copy" type="button">copiar</button></div>
+    <div class="row"><span class="cmd">/plugin install arca@ar-plugins</span><button class="copy" type="button">copiar</button></div>
+    <span class="note">Dentro de Claude Code. Cambiá <code>arca</code> por cualquier plugin de abajo.</span>
+  </div>
+  <h3 class="tool">Codex</h3>
+  <div class="term" role="group" aria-label="Instalación en Codex">
+    <div class="row"><span class="cmd sh">git clone https://github.com/kvothesson/arca ~/plugins/arca</span><button class="copy" type="button">copiar</button></div>
+    <div class="row"><span class="cmd sh">cd ~/plugins/arca &amp;&amp; codex</span><button class="copy" type="button">copiar</button></div>
+    <span class="note">En la terminal. Cada plugin trae su <code>AGENTS.md</code> y Codex lo lee solo. Cambiá <code>arca</code> por el que quieras.</span>
+  </div>
+  <p>Más opciones, como cargar varios plugins a la vez, en el <a href="https://github.com/kvothesson/ar-plugins#instalación">README</a>.</p>
+</div>
+
+<section aria-labelledby="catalogo">
+  <h2 id="catalogo">Los plugins</h2>
+  <p class="hint">Los comandos son de Claude Code. En Codex pedilo con tus palabras, por ejemplo: «¿cuánto está el blue hoy?».</p>
+  <div id="grupos"></div>
+</section>
+
+<section aria-labelledby="como">
+  <h2 id="como">Cómo están hechos</h2>
+  <div class="facts">
+    <div class="fact"><b>Datos en vivo</b><span>Las cifras se consultan al momento: dolarapi, la API de series de datos.gob.ar y las páginas oficiales.</span></div>
+    <div class="fact"><b>Fuentes a la vista</b><span>Cada respuesta dice de dónde sale el dato y de qué fecha es.</span></div>
+    <div class="fact"><b>Abiertos</b><span>Código abierto, un repo por plugin. Si algo está mal, el plugin <code>reportar</code> abre el issue por vos.</span></div>
+  </div>
+</section>
+
+<footer>
+  <p>Hecho por <a href="https://github.com/kvothesson">Kvothesson</a>. Código en <a href="https://github.com/kvothesson/ar-plugins">github.com/kvothesson/ar-plugins</a>; se aceptan PRs y plugins nuevos.</p>
+  <p>No es asesoramiento legal, médico ni financiero: es información pública ordenada.</p>
+</footer>
+
+</div>
+
+<script>
+const GRUPOS = [
+  ["Plata y trabajo", [
+    ["arca", "Dólar oficial, blue, MEP y CCL, inflación, canasta básica y tu sueldo en dólares, al día de hoy.", "/arca sueldo 1500000"],
+    ["guita", "Ingreso neto real según cómo trabajás, gastos ajustados por inflación y cuántos meses te duran los ahorros.", "/guita runway"],
+    ["laburo", "Sueldos por puesto, paritarias, salario mínimo, tarifas para freelance y ayuda con el CV.", "/laburo sueldo desarrollador"],
+    ["facturar", "Facturación electrónica del monotributo contra ARCA: facturas C y E y notas de crédito, pedidas en castellano.", "/facturar:facturar factura"],
+  ]],
+  ["Estado y derechos", [
+    ["tramite", "ANSES, ARCA, DNI y registro automotor: requisitos, turnos y pasos, sin vueltas.", "/tramite anses jubilacion"],
+    ["derecho", "Marco legal accesible: laboral, consumidor, contratos y sociedades.", "/derecho consumidor"],
+    ["salud", "Cobertura de obras sociales, PAMI, hospitales públicos y precios de medicamentos.", "/salud medicamento ibuprofeno"],
+    ["educacion", "Becas, dónde estudiar cada carrera, certificaciones tech e inglés gratis.", "/educacion becas"],
+    ["startup", "Fondos públicos y privados, cómo constituir la empresa, equity y pitch.", "/startup fondos"],
+  ]],
+  ["Datos e información", [
+    ["dato", "INDEC, resultados electorales, catastro y jurisprudencia, en datos que se pueden procesar.", "/dato indec desempleo"],
+    ["medios", "La agenda del día, cómo cubre cada medio un tema y verificación de afirmaciones.", "/medios verificar"],
+    ["mechas", "Lyra analiza sesiones del Congreso a partir del video de YouTube y sugiere qué hacer.", "lyra + link de la sesión", "mechas-plugin"],
+  ]],
+  ["Para tu agente", [
+    ["nodo", "Contexto personal que persiste entre sesiones de Claude Code.", "/nodo"],
+    ["reportar", "Cuando el agente encuentra algo roto en un plugin, abre el issue en GitHub.", "/reportar"],
+    ["daemons", "Bichos del folklore argentino y guaraní que observan, diagnostican y ordenan tu entorno.", "pombero, luz mala, lobizón…", "daemons-plugin"],
+  ]],
+];
+
+const esc = s => s.replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+document.getElementById("grupos").innerHTML = GRUPOS.map(([titulo, items]) => `
+  <div class="group">
+    <h3>${esc(titulo)}</h3>
+    <div class="grid">${items.map(([n, d, t, repo]) => `
+      <article class="card">
+        <div class="top">
+          <a class="name" href="https://github.com/kvothesson/${repo || n}">${esc(n)}</a>
+          <span class="inst">${esc(n)}@ar-plugins</span>
+        </div>
+        <p>${esc(d)}</p>
+        <code class="try">${esc(t)}</code>
+      </article>`).join("")}
+    </div>
+  </div>`).join("");
+document.getElementById("grupos").style.cssText = "display:grid;gap:2rem";
+
+document.querySelectorAll(".copy").forEach(b => b.addEventListener("click", async () => {
+  const txt = b.previousElementSibling.textContent;
+  try { await navigator.clipboard.writeText(txt); } catch { return; }
+  b.textContent = "copiado"; b.dataset.ok = "";
+  setTimeout(() => { b.textContent = "copiar"; delete b.dataset.ok; }, 1600);
+}));
+</script>
+</body>
+</html>
